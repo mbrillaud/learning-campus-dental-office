@@ -61,6 +61,9 @@ app.set('view engine', 'njk');
 //Allow app to read body request
 app.use(express.json());
 
+app.use("/public", express.static(__dirname + "front-office/public"));
+app.use("/bopublic", express.static(__dirname + "/back-office/public"));
+
 app.use(cors());
 
 app.get('/bo', function(req, res) {
