@@ -49,3 +49,7 @@ L'application se divise en deux grandes parties :
 - Diagrammes de cas d'utilisation et diagramme de classe.
 - Code source du site web sur GitHub.
 - Lien vers le site web hébergé sur un serveur distant.
+
+
+## Notes
+- Diagramme de classe : https://drive.google.com/file/d/1QxpD6kzZo02YJPceZ4SohObwG0Fje8xc/view?usp=sharing
