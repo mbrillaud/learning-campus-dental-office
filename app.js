@@ -4,6 +4,8 @@ const cors = require('cors');
 const swaggerJSDoc = require('swagger-jsdoc');
 const helpers = require('./shared/utils/helpers');
 const swaggerUi = require('swagger-ui-express');
+const nunjucks = require('nunjucks');
+const path = require('path');
 
 const app = express();
 
@@ -47,10 +49,22 @@ app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 //Dotenv
 dotenv.config({path: '.env'});
 
+//Nunjucks
+nunjucks.configure({
+    autoescape: true,
+    express: app,
+    watch: true
+});
+app.engine ('njk', nunjucks.render);
+app.set('view engine', 'njk');
 
 //Allow app to read body request
 app.use(express.json());
 
 app.use(cors());
+
+app.get('/bo', function(req, res) {
+    res.render('back-office/views/index.njk');
+});
 
 module.exports = app;
