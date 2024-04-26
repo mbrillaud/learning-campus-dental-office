@@ -1,22 +1,26 @@
 const express = require('express');
+
 const dotenv = require('dotenv');
+dotenv.config({path: '.env'});
+
+const sequelize = require('./shared/utils/sequelize-config');
 const cors = require('cors');
 const swaggerJSDoc = require('swagger-jsdoc');
 const helpers = require('./shared/utils/helpers');
 const swaggerUi = require('swagger-ui-express');
 const nunjucks = require('nunjucks');
-const Sequelize = require('sequelize');
+
+//Models
+const User = require('./shared/models/User');
+const News = require('./shared/models/News');
+const Service = require('./shared/models/Service');
+const Appointment = require('./shared/models/Appointment');
+const Schedule = require('./shared/models/Schedule');
 
 const app = express();
 
-//Dotenv
-dotenv.config({path: '.env'});
 
-const sequelize = new Sequelize(process.env.DB_NAME, process.env.DB_USER, process.env.DB_PWD, {
-    host: process.env.DB_HOST,
-    dialect: 'mysql',
-  });
-
+//Sequelize
 sequelize.authenticate()
     .then(() => {
         console.log('Connection to the database has been established successfully.');
@@ -24,6 +28,14 @@ sequelize.authenticate()
     .catch(err => {
         console.error('Unable to connect to the database:', err);
 });
+
+sequelize.sync({ force: false })
+  .then(() => {
+    console.log('Tables synchronized successfully.');
+  })
+  .catch(err => {
+    console.error('Error synchronizing tables:', err);
+  });
 
 //Swagger
 const port = helpers.normalizePort(process.env.PORT || '3000');
