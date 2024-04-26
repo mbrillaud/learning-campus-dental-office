@@ -5,7 +5,6 @@ const swaggerJSDoc = require('swagger-jsdoc');
 const helpers = require('./shared/utils/helpers');
 const swaggerUi = require('swagger-ui-express');
 const nunjucks = require('nunjucks');
-const path = require('path');
 
 const app = express();
 
