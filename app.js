@@ -5,13 +5,28 @@ const swaggerJSDoc = require('swagger-jsdoc');
 const helpers = require('./shared/utils/helpers');
 const swaggerUi = require('swagger-ui-express');
 const nunjucks = require('nunjucks');
+const Sequelize = require('sequelize');
 
 const app = express();
 
+//Dotenv
+dotenv.config({path: '.env'});
 
-const port = helpers.normalizePort(process.env.PORT || '3000');
+const sequelize = new Sequelize(process.env.DB_NAME, process.env.DB_USER, process.env.DB_PWD, {
+    host: process.env.DB_HOST,
+    dialect: 'mysql',
+  });
+
+sequelize.authenticate()
+    .then(() => {
+        console.log('Connection to the database has been established successfully.');
+    })
+    .catch(err => {
+        console.error('Unable to connect to the database:', err);
+});
 
 //Swagger
+const port = helpers.normalizePort(process.env.PORT || '3000');
 const swaggerOptions = {
   swaggerDefinition: {
     openapi: '3.0.0',
@@ -44,9 +59,6 @@ const swaggerOptions = {
 
 const swaggerDocs = swaggerJSDoc(swaggerOptions);
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
-
-//Dotenv
-dotenv.config({path: '.env'});
 
 //Nunjucks
 nunjucks.configure({
