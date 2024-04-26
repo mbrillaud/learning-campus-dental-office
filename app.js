@@ -1,5 +1,9 @@
 const express = require('express');
 
+const app = express();
+//Allow app to read body request
+app.use(express.json());
+
 const dotenv = require('dotenv');
 dotenv.config({path: '.env'});
 
@@ -17,7 +21,12 @@ const Service = require('./shared/models/Service');
 const Appointment = require('./shared/models/Appointment');
 const Schedule = require('./shared/models/Schedule');
 
-const app = express();
+//Routes
+const usersRoutes = require('./shared/routes/users');
+
+app.use('/api/auth', usersRoutes);
+
+
 
 
 //Sequelize
@@ -29,13 +38,13 @@ sequelize.authenticate()
         console.error('Unable to connect to the database:', err);
 });
 
-sequelize.sync({ force: false })
-  .then(() => {
-    console.log('Tables synchronized successfully.');
-  })
-  .catch(err => {
-    console.error('Error synchronizing tables:', err);
-  });
+// sequelize.sync({ force: false })
+//   .then(() => {
+//     console.log('Tables synchronized successfully.');
+//   })
+//   .catch(err => {
+//     console.error('Error synchronizing tables:', err);
+//   });
 
 //Swagger
 const port = helpers.normalizePort(process.env.PORT || '3000');
@@ -65,7 +74,7 @@ const swaggerOptions = {
       bearerAuth: []
     }]
   },
-  apis: ["back-office/routes/*.js", "front-office/routes/*.js"]
+  apis: ["back-office/routes/*.js", "front-office/routes/*.js", "shared/routes/*.js"]
 };
 
 
@@ -81,8 +90,7 @@ nunjucks.configure({
 app.engine ('njk', nunjucks.render);
 app.set('view engine', 'njk');
 
-//Allow app to read body request
-app.use(express.json());
+
 
 app.use("/public", express.static(__dirname + "front-office/public"));
 app.use("/bopublic", express.static(__dirname + "/back-office/public"));
