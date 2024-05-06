@@ -13,7 +13,7 @@
   <meta property="og:url" content="">
   <meta property="og:image" content="">
   <meta property="og:image:alt" content="">
-  {% block scripts %}{% endblock %}
+  <script src="/sharedpublic/js/fetch.js"></script>
 </head>
 
 <body>
@@ -21,6 +21,7 @@
     {% block content %}{% endblock %}
     </div>
 
+    {% block scripts %}{% endblock %}
 </body>
 
 </html>

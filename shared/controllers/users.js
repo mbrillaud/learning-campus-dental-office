@@ -31,16 +31,16 @@ exports.signup = (req, res, next) => {
  * @param {Function} next - Le middleware suivant.
  */
 exports.login = (req, res, next) => {
-    User.findOne({email: req.body.email})
+    User.findOne({ where: { email: req.body.email } })
         .then(user => {
             const loginErrorMessage = 'Wrong email or password';
             if (user === null) {
-                res.status(401).json({message: loginErrorMessage});
+                res.status(401).json({ message: loginErrorMessage });
             } else {
                 bcrypt.compare(req.body.password, user.password)
                     .then(valid => {
                         if (!valid) {
-                            res.status(401).json({message: loginErrorMessage});
+                            res.status(401).json({ message: loginErrorMessage });
                         } else {
                             const token = jwt.sign(
                                 {
@@ -48,20 +48,24 @@ exports.login = (req, res, next) => {
                                     userStatus: user.status
                                 },
                                 process.env.TOKEN_KEY,
-                                {expiresIn: '24h'}
+                                { expiresIn: '24h' }
                             );
-
-                            res.status(200).json({
-                                userId: user.id,
-                                token: token
-                            });
+                            res.cookie('token', token, { maxAge: 86400000, httpOnly: true });
+                            if(user.status === "admin") {
+                                res.set('Location', '/bo');
+                                response.set('Access-Control-Expose-Headers', 'Location')
+                                res.status(302).json({ message: 'logged in successfully' })
+                            } else {
+                                res.set('Location', '/login');
+                                res.status(401).json({ message: 'unauthorized' });
+                            }
                         }
                     })
                     .catch(error => {
-                        res.status(500).json({error});
+                        res.status(500).json({ error });
                     });
-
             }
         })
-        .catch(error => res.status(500).json({error}));
+        .catch(error => res.status(500).json({ error }));
 };
+
