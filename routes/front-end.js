@@ -2,6 +2,8 @@ const express = require('express');
 const auth = require('../middlewares/auth');
 const router = express.Router();
 
+const { logout } = require('../controllers/users');
+
 router.get('/', (req, res) => {
     console.log('res.locals', res.locals);
     res.render('./index.njk', {
@@ -18,6 +20,9 @@ router.get('/login', (req, res) => {
 router.get('/signup', (req, res) => {
     res.render('./signup.njk');
 });
+
+router.get('/logout', logout);
+
 router.get('/news', (req, res) => {
     res.render('./news.njk');
 });

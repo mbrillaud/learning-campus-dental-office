@@ -63,3 +63,13 @@ exports.login = (req, res, next) => {
         .catch(error => res.status(500).json({ error }));
 };
 
+/**
+ * Déconnexion d'un utilisateur.
+ * @param {Object} req - La requête HTTP.
+ * @param {Object} res - La réponse HTTP.
+ * @param {Function} next - Le middleware suivant.
+ */
+exports.logout = (req, res) => {
+    res.clearCookie('token'); // Supprime le cookie nommé 'token'
+    res.redirect('/'); // Redirige vers une page de déconnexion réussie
+};
