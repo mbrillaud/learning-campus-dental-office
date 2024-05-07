@@ -2,21 +2,21 @@ const express = require('express');
 const auth = require('../middlewares/auth');
 const router = express.Router();
 
+router.get('/', (req, res) => {
+    console.log('res.locals', res.locals);
+    res.render('./index.njk', {
+        isAuthenticated: res.locals.isAuthenticated,
+        isAdmin: res.locals.isAdmin
+    });
+});
 router.get('/bo', auth, function(req, res) {
-    if(req.auth.userRole === "admin") {
-        res.render('./bo.njk');
-    } else {
-        res.render('./login.njk');
-    }
+    res.render('./bo.njk');
 });
 router.get('/login', (req, res) => {
     res.render('./login.njk');
 });
 router.get('/signup', (req, res) => {
     res.render('./signup.njk');
-});
-router.get('/', (req, res) => {
-    res.render('./index.njk');
 });
 router.get('/news', (req, res) => {
     res.render('./news.njk');
