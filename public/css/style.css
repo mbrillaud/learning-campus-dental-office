@@ -8,6 +8,12 @@ h1 {
     font-size: 1.5rem;
 }
 
+.navbar {
+    text-transform: uppercase;
+}
+.navbar-toggler:focus {
+    outline: none;
+}
 .navbar-brand {
     height: 7rem;
     width: auto;
