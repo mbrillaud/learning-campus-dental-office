@@ -4,6 +4,9 @@ const app = express();
 //Allow app to read body request
 app.use(express.json());
 
+const cookieParser = require('cookie-parser');
+app.use(cookieParser());
+
 const dotenv = require('dotenv');
 dotenv.config({path: '.env'});
 
@@ -22,8 +25,10 @@ const Appointment = require('./shared/models/Appointment');
 const Schedule = require('./shared/models/Schedule');
 
 //Routes
+const viewsRoutes = require('./shared/routes/front-end');
 const usersRoutes = require('./shared/routes/users');
 
+app.use('/', viewsRoutes);
 app.use('/api/auth', usersRoutes);
 
 
@@ -92,13 +97,10 @@ app.set('view engine', 'njk');
 
 
 
-app.use("/public", express.static(__dirname + "front-office/public"));
-app.use("/bopublic", express.static(__dirname + "/back-office/public"));
+app.use('/public', express.static(__dirname + 'front-office/public'));
+app.use('/bopublic', express.static(__dirname + '/back-office/public'));
+app.use('/sharedpublic', express.static(__dirname + '/shared/public'));
 
 app.use(cors());
-
-app.get('/bo', function(req, res) {
-    res.render('back-office/views/index.njk');
-});
 
 module.exports = app;
