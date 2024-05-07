@@ -29,11 +29,7 @@ const User = sequelize.define('user', {
       type: DataTypes.STRING,
       allowNull: false
     },
-    service: {
-      type: DataTypes.STRING,
-      allowNull: true
-    },
-    status: {
+    role: {
       type: DataTypes.STRING,
       allowNull: true
     }

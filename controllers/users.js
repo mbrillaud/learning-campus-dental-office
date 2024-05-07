@@ -45,13 +45,13 @@ exports.login = (req, res, next) => {
                             const token = jwt.sign(
                                 {
                                     userId: user.id,
-                                    userStatus: user.status
+                                    userRole: user.role
                                 },
                                 process.env.TOKEN_KEY,
                                 { expiresIn: '24h' }
                             );
                             res.cookie('token', token, { maxAge: 86400000, httpOnly: true });
-                            if(user.status === "admin") {
+                            if(user.role === "admin") {
                                 res.set('Location', '/bo');
                                 response.set('Access-Control-Expose-Headers', 'Location')
                                 res.status(302).json({ message: 'logged in successfully' })

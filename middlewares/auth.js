@@ -7,11 +7,11 @@ module.exports = (req, res, next) => {
         }
         const token = req.cookies.token;
         const userId = jwt.verify(token, process.env.TOKEN_KEY).userId;
-        const userStatus = jwt.verify(token, process.env.TOKEN_KEY).userStatus;
+        const userRole = jwt.verify(token, process.env.TOKEN_KEY).userRole;
 
         req.auth = {
             userId: userId,
-            userStatus: userStatus
+            userRole: userRole
         };
         next();
     } catch(error) {
