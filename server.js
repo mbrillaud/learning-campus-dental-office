@@ -1,6 +1,6 @@
 const http = require('http');
 const app = require('./app');
-const helpers = require('./shared/utils/helpers');
+const helpers = require('./utils/helpers');
 
 const port = helpers.normalizePort(process.env.PORT || '3000');
 app.set('port', port);

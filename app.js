@@ -10,23 +10,23 @@ app.use(cookieParser());
 const dotenv = require('dotenv');
 dotenv.config({path: '.env'});
 
-const sequelize = require('./shared/utils/sequelize-config');
+const sequelize = require('./utils/sequelize-config');
 const cors = require('cors');
 const swaggerJSDoc = require('swagger-jsdoc');
-const helpers = require('./shared/utils/helpers');
+const helpers = require('./utils/helpers');
 const swaggerUi = require('swagger-ui-express');
 const nunjucks = require('nunjucks');
 
 //Models
-const User = require('./shared/models/User');
-const News = require('./shared/models/News');
-const Service = require('./shared/models/Service');
-const Appointment = require('./shared/models/Appointment');
-const Schedule = require('./shared/models/Schedule');
+const User = require('./models/User');
+const News = require('./models/News');
+const Service = require('./models/Service');
+const Appointment = require('./models/Appointment');
+const Schedule = require('./models/Schedule');
 
 //Routes
-const viewsRoutes = require('./shared/routes/front-end');
-const usersRoutes = require('./shared/routes/users');
+const viewsRoutes = require('./routes/front-end');
+const usersRoutes = require('./routes/users');
 
 app.use('/', viewsRoutes);
 app.use('/api/auth', usersRoutes);
@@ -79,7 +79,7 @@ const swaggerOptions = {
       bearerAuth: []
     }]
   },
-  apis: ["back-office/routes/*.js", "front-office/routes/*.js", "shared/routes/*.js"]
+  apis: ["back-office/routes/*.js", "front-office/routes/*.js", "routes/*.js"]
 };
 
 
@@ -87,7 +87,7 @@ const swaggerDocs = swaggerJSDoc(swaggerOptions);
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 
 //Nunjucks
-nunjucks.configure({
+nunjucks.configure('views',{
     autoescape: true,
     express: app,
     watch: true
@@ -97,9 +97,8 @@ app.set('view engine', 'njk');
 
 
 
-app.use('/public', express.static(__dirname + 'front-office/public'));
-app.use('/bopublic', express.static(__dirname + '/back-office/public'));
-app.use('/sharedpublic', express.static(__dirname + '/shared/public'));
+
+app.use('/public', express.static(__dirname + '/public'));
 
 app.use(cors());
 
