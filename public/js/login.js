@@ -1,5 +1,3 @@
-const loginForm = document.getElementById('login-form');
-
 document.getElementById('login-form').addEventListener('submit', (event) => {
     event.preventDefault();
 
@@ -34,4 +32,3 @@ const login = (credentials) => {
             console.error('Erreur lors de la requête :', error);
         });
 };
-
