@@ -1,0 +1,29 @@
+{% extends "./layout.njk" %}
+{% block  scripts %}
+<script src="/public/js/login.js"></script>
+{% endblock %}
+
+{% block content %}
+    <h1 class="text-center pt-5 pb-5">Connexion</h1>
+    <form id="login-form">
+        <!-- Email input -->
+        <div data-mdb-input-init class="form-outline mb-4">
+          <input type="email" id="email" class="form-control" />
+          <label class="form-label" for="email">Email</label>
+        </div>
+        <!-- Password input -->
+        <div data-mdb-input-init class="form-outline mb-4">
+          <input type="password" id="password" class="form-control" />
+          <label class="form-label" for="password">Mot de passe</label>
+        </div>
+        <!-- Submit button -->
+        <button type="submit" data-mdb-button-init data-mdb-ripple-init class="btn btn-primary btn-block mb-4">Se connecter</button>
+        <div id="unauthorized" class="alert alert-danger text-center invisible">
+          Ce compte n'a pas les autorisations nécessaires.
+        </div>
+      </form>
+      <!-- Link to signup page -->
+      <div class="text-center">
+        <p>Vous n'avez pas de compte ? <a href="/signup">Créer un compte</a></p>
+      </div>
+{% endblock %}

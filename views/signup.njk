@@ -1,11 +1,11 @@
 {% extends "./layout.njk" %}
 {% block  scripts %}
-<script src="/bopublic/js/login.js"></script>
+<script src="/public/js/login.js"></script>
 {% endblock %}
 
 {% block content %}
-    <h1 class="text-center pt-5 pb-5">Connexion au back office</h1>
-    <form id="login-form">
+    <h1 class="text-center pt-5 pb-5">Créer un compte</h1>
+    <form id="signup-form">
         <!-- Email input -->
         <div data-mdb-input-init class="form-outline mb-4">
           <input type="email" id="email" class="form-control" />
@@ -17,10 +17,7 @@
           <label class="form-label" for="password">Mot de passe</label>
         </div>
         <!-- Submit button -->
-        <button type="submit" data-mdb-button-init data-mdb-ripple-init class="btn btn-primary btn-block mb-4">Se connecter</button>
-        </div>
-        <div id="unauthorized" class="invisible">
-          Ce compte n'a pas les autorisations nécéssaires.
+        <button type="submit" data-mdb-button-init data-mdb-ripple-init class="btn btn-primary btn-block mb-4">Créer le compte</button>
         </div>
       </form>
   {% endblock %}
