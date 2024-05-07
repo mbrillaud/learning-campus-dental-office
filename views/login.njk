@@ -18,9 +18,12 @@
         </div>
         <!-- Submit button -->
         <button type="submit" data-mdb-button-init data-mdb-ripple-init class="btn btn-primary btn-block mb-4">Se connecter</button>
-        </div>
         <div id="unauthorized" class="alert alert-danger text-center invisible">
-          Ce compte n'a pas les autorisations nécéssaires.
+          Ce compte n'a pas les autorisations nécessaires.
         </div>
       </form>
-  {% endblock %}
+      <!-- Link to signup page -->
+      <div class="text-center">
+        <p>Vous n'avez pas de compte ? <a href="/signup">Créer un compte</a></p>
+      </div>
+{% endblock %}
