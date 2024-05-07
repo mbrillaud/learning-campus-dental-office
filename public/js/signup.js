@@ -24,8 +24,10 @@ const signup = (credentials) => {
 
     fetch(loginUrl, requestOptions)
         .then(data => {
-            if(data.status === 201) {
-                document.getElementById('success').classList.remove('invisible');
+            if(data.status === 200) {
+                if(data.status === 200) {
+                    window.location.href = '/';
+                }
             } else {
                 document.getElementById('failure').classList.remove('invisible');
             }

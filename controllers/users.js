@@ -17,7 +17,17 @@ exports.signup = (req, res, next) => {
             const user = new User(data);
             user.save()
                 .then(() => {
-                    res.status(201).json({message: 'User has been created'});
+                    const token = jwt.sign(
+                        {
+                            userId: user.id,
+                            userRole: user.role
+                        },
+                        process.env.TOKEN_KEY,
+                        { expiresIn: '24h' }
+                    );
+                    res.cookie('token', token, { maxAge: 86400000, httpOnly: true });
+                    res.set('Location', '/');
+                    res.status(302).json({message: 'User has been created and logged in successfully.'});
                 })
                 .catch(error => res.status(400).json({error}));
         })
