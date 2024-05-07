@@ -17,6 +17,10 @@ const helpers = require('./utils/helpers');
 const swaggerUi = require('swagger-ui-express');
 const nunjucks = require('nunjucks');
 
+//Vérification du status de l'utilisateur
+const checkUserStatus = require('./middlewares/checkUserStatus');
+app.use(checkUserStatus);
+
 //Models
 const User = require('./models/User');
 const News = require('./models/News');
@@ -94,8 +98,6 @@ nunjucks.configure('views',{
 });
 app.engine ('njk', nunjucks.render);
 app.set('view engine', 'njk');
-
-
 
 
 app.use('/public', express.static(__dirname + '/public'));

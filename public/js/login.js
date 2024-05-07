@@ -21,11 +21,8 @@ const login = (credentials) => {
 
     fetch(loginUrl, requestOptions)
         .then(data => {
-            const location = data.headers.get('Location');
-            if (location && location === '/bo') {
-                window.location.href = location;
-            } else {
-                document.getElementById('unauthorized').classList.remove('invisible');
+            if(data.status === 200) {
+                window.location.href = '/';
             }
         })
         .catch(error => {
