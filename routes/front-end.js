@@ -3,7 +3,7 @@ const auth = require('../middlewares/auth');
 const router = express.Router();
 
 router.get('/bo', auth, function(req, res) {
-    if(req.auth.userStatus === "admin") {
+    if(req.auth.userRole === "admin") {
         res.render('./bo.njk');
     } else {
         res.render('./login.njk');
