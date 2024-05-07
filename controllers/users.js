@@ -51,14 +51,8 @@ exports.login = (req, res, next) => {
                                 { expiresIn: '24h' }
                             );
                             res.cookie('token', token, { maxAge: 86400000, httpOnly: true });
-                            if(user.role === "admin") {
-                                res.set('Location', '/bo');
-                                response.set('Access-Control-Expose-Headers', 'Location')
-                                res.status(302).json({ message: 'logged in successfully' })
-                            } else {
-                                res.set('Location', '/login');
-                                res.status(401).json({ message: 'unauthorized' });
-                            }
+                            res.set('Location', '/');
+                            res.status(302).json({message: 'logged in successfully'});
                         }
                     })
                     .catch(error => {
