@@ -19,6 +19,12 @@ router.get('/bo/schedules', auth, function(req, res) {
     res.render('./bo/schedules.njk');
 });
 router.get('/bo/services', auth, servicesCtrl.renderServicesBO);
+router.get('/bo/news', auth, function(req, res) {
+    res.render('./bo/news.njk');
+});
+router.get('/bo/appointments', auth, function(req, res) {
+    res.render('./bo/appointments.njk');
+});
 router.get('/login', (req, res) => {
     res.render('./login.njk');
 });
