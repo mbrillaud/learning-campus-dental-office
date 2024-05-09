@@ -1,1 +1,48 @@
-<h2 class="text-center">Services</h2>
+{% extends "../layout.njk" %}
+
+{% block content %}
+    {% include "./menu.njk" %}
+    <div class="container">
+        <h2 class="text-center">Services</h2>
+        <ul class="list-group services" id="services">
+            {% for service in services %}
+                <li class="list-group-item">
+                    <form id="{{service.id}}" class="service-form">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <input type="text" class="form-control" name="label" value="{{ service.label }}">
+                            </div>
+                            <div class="col-md-6">
+                                <textarea class="form-control" name="description">{{ service.description }}</textarea>
+                            </div>
+                        </div>
+                        <div class="row mt-2">
+                            <div class="col-md-6">
+                                <button type="submit" class="btn btn-primary update">Modifier</button>
+                                <button class="btn btn-danger delete">Supprimer</button>
+                            </div>
+                        </div>
+                    </form>
+                </li>
+            {% endfor %}
+        </ul>
+        <h3 class="mt-4">Ajouter un service</h3>
+        <form class="service-form">
+            <div class="row">
+                <div class="col-md-6">
+                    <input type="text" class="form-control" name="label" placeholder="Nom du service">
+                </div>
+                <div class="col-md-6">
+                    <textarea class="form-control" name="description" placeholder="Description"></textarea>
+                </div>
+            </div>
+            <div class="row mt-2">
+                <div class="col-md-6">
+                    <button type="submit" class="btn btn-success">Ajouter</button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <script src="/public/js/services.js"></script>
+{% endblock %}

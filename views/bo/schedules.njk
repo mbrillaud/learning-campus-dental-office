@@ -1,4 +1,8 @@
-<h2 class="text-center">Emploi du temps</h2>
+{% extends "../layout.njk" %}
+
+{% block content %}
+{% include "./menu.njk" %}
+<h2 class="text-center">Horaires</h2>
 
 <div id="schedules-container" class="table-responsive">
 </div>
@@ -36,3 +40,4 @@
 
 <script src="/public/js/schedules.js"></script>
 
+{% endblock %}
