@@ -1,6 +1,9 @@
 <h2 class="text-center">Emploi du temps</h2>
 
-<form action="/action_page" method="post" class="schedules-form">
+<div id="schedules-container" class="table-responsive">
+</div>
+
+<form id="schedules-form" class="schedules-form">
   <label for="weekday">Jour de la semaine :</label>
   <select id="weekday" name="weekday">
     <option value="lundi">Lundi</option>
@@ -30,3 +33,6 @@
 
   <input type="submit" value="Valider">
 </form>
+
+<script src="/public/js/schedules.js"></script>
+
