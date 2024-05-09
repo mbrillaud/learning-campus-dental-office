@@ -32,10 +32,12 @@ const Schedules = require('./models/Schedules');
 const viewsRoutes = require('./routes/front-end');
 const usersRoutes = require('./routes/users');
 const schedulesRoutes = require('./routes/schedules');
+const servicesRoutes = require('./routes/services');
 
 app.use('/', viewsRoutes);
 app.use('/api/auth', usersRoutes);
 app.use('/api/schedules', schedulesRoutes);
+app.use('/api/services', servicesRoutes);
 
 
 
