@@ -10,22 +10,32 @@ h1 {
 h2 {
     font-size: 1.3rem;
 }
-
+.content {
+    min-height: calc(100vh - 272px);
+}
 .navbar {
     text-transform: uppercase;
-}
-.navbar-toggler:focus {
-    outline: none;
-}
-.navbar-brand {
-    height: 7rem;
-    width: auto;
-}
-.navbar-brand img {
-    height: 100%;
-    width: 100%;
+    &:focus {
+        outline: none;
+    }
+    .navbar-brand {
+        height: 7rem;
+        width: auto;
+        img {
+            height: 100%;
+            width: 100%;
+        }
+    }
 }
 
 .tab-pane {
     padding: 1rem;
+}
+
+.schedules-form {
+    padding: 1rem 0;
+    margin: 0 auto;
+    label {
+        min-width: 300px;
+    }
 }
