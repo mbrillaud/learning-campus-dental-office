@@ -54,8 +54,7 @@ getSchedules = () => {
 }
 
 
-getSchedules();
-
+// Mettre à jour les horaires et les valeurs des inputs
 showSchedules = (schedules) => {
     schedulesContainer.innerHTML = '';
     const table = document.createElement('table');
@@ -68,9 +67,26 @@ showSchedules = (schedules) => {
     schedules.forEach(item => {
         const row = tableBody.insertRow();
         row.innerHTML = `<th scope="row">${item.weekday}</th><td>${item.morningopeningtime}</td><td>${item.morningclosingtime}</td><td>${item.afternoonopeningtime}</td><td>${item.afternoonclosingtime}</td>`;
+
+        // Mettre à jour les valeurs des inputs
+        if (item.weekday === document.getElementById('weekday').value) {
+            document.getElementById('morningopeningtime').value = item.morningopeningtime;
+            document.getElementById('morningclosingtime').value = item.morningclosingtime;
+            document.getElementById('afternoonopeningtime').value = item.afternoonopeningtime;
+            document.getElementById('afternoonclosingtime').value = item.afternoonclosingtime;
+        }
     });
 
     table.appendChild(tableBody);
-
     schedulesContainer.appendChild(table);
 }
+
+// Mettre à jour les horaires lors du chargement de la page
+document.addEventListener('DOMContentLoaded', () => {
+    getSchedules();
+});
+
+// Mettre à jour les horaires lors du changement de jour de la semaine
+document.getElementById('weekday').addEventListener('change', () => {
+    getSchedules();
+});
