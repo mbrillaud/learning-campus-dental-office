@@ -26,7 +26,7 @@ const User = require('./models/User');
 const News = require('./models/News');
 const Service = require('./models/Service');
 const Appointment = require('./models/Appointment');
-const Schedule = require('./models/Schedule');
+const Schedules = require('./models/Schedules');
 
 //Routes
 const viewsRoutes = require('./routes/front-end');
