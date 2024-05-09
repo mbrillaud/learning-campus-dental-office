@@ -14,7 +14,6 @@ schedulesForm.addEventListener('submit', (event) => {
 });
 
 addOrUpdateSchedule = (schedule) => {
-    console.log('schedule', schedule);
     const requestOptions = {
         method: 'POST',
         headers: {
