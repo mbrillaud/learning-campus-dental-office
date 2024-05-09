@@ -43,3 +43,21 @@ exports.deleteService = async (req, res) => {
         res.status(500).json({ error });
     }
 };
+
+exports.renderServices = async (req, res) => {
+    try {
+        const services = await Service.findAll();
+        res.render('services.njk', { services: services });
+    } catch (error) {
+        res.status(500).json({ error });
+    }
+};
+
+exports.renderServicesBO = async (req, res) => {
+    try {
+        const services = await Service.findAll();
+        res.render('bo/services.njk', { services: services });
+    } catch (error) {
+        res.status(500).json({ error });
+    }
+};

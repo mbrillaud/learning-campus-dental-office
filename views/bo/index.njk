@@ -1,35 +1,4 @@
 {% extends "../layout.njk" %}
-
 {% block content %}
-    <h1 class="text-center pt-5 pb-5">Back-office</h1>
-    <div class="container mt-5">
-  <ul class="nav nav-tabs" id="myTab" role="tablist">
-    <li class="nav-item">
-      <a class="nav-link active" id="horaires-tab" data-toggle="tab" href="#horaires" role="tab" aria-controls="horaires" aria-selected="true">Horaires</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" id="services-tab" data-toggle="tab" href="#services" role="tab" aria-controls="services" aria-selected="false">Services</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" id="rendezvous-tab" data-toggle="tab" href="#rendezvous" role="tab" aria-controls="rendezvous" aria-selected="false">Rendez-vous</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" id="actualites-tab" data-toggle="tab" href="#actualites" role="tab" aria-controls="actualites" aria-selected="false">Actualités</a>
-    </li>
-  </ul>
-  <div class="tab-content" id="myTabContent">
-    <div class="tab-pane fade show active" id="horaires" role="tabpanel" aria-labelledby="horaires-tab">
-      {% include "./schedules.njk" %}
-    </div>
-    <div class="tab-pane fade" id="services" role="tabpanel" aria-labelledby="services-tab">
-      {% include "./services.njk" %}
-    </div>
-    <div class="tab-pane fade" id="rendezvous" role="tabpanel" aria-labelledby="rendezvous-tab">
-      {% include "./appointments.njk" %}
-    </div>
-    <div class="tab-pane fade" id="actualites" role="tabpanel" aria-labelledby="actualites-tab">
-      {% include "./news.njk" %}
-    </div>
-  </div>
-</div>
+{% include "./menu.njk" %}
 {% endblock %}

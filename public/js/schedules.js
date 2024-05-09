@@ -22,7 +22,7 @@ addOrUpdateSchedule = (schedule) => {
         },
         body: JSON.stringify(schedule)
     };
-    const schedulesUrl = 'api/schedules';
+    const schedulesUrl = '../api/schedules';
 
     fetch(schedulesUrl, requestOptions)
         .then(response => {
@@ -34,7 +34,7 @@ addOrUpdateSchedule = (schedule) => {
 }
 
 getSchedules = () => {
-    fetch('api/schedules', { method: 'GET' })
+    fetch('../api/schedules', { method: 'GET' })
         .then(response => {
             if (!response.ok) {
                 throw new Error('Request failed');

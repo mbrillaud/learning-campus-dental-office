@@ -1,5 +1,6 @@
 const express = require('express');
 const auth = require('../middlewares/auth');
+const servicesCtrl = require('../controllers/services');
 const router = express.Router();
 
 const { logout } = require('../controllers/users');
@@ -14,6 +15,10 @@ router.get('/', (req, res) => {
 router.get('/bo', auth, function(req, res) {
     res.render('./bo/index.njk');
 });
+router.get('/bo/schedules', auth, function(req, res) {
+    res.render('./bo/schedules.njk');
+});
+router.get('/bo/services', auth, servicesCtrl.renderServicesBO);
 router.get('/login', (req, res) => {
     res.render('./login.njk');
 });
@@ -29,8 +34,6 @@ router.get('/news', (req, res) => {
 router.get('/appointment', (req, res) => {
     res.render('./appointment.njk');
 });
-router.get('/services', (req, res) => {
-    res.render('./services.njk');
-});
+router.get('/services', servicesCtrl.renderServices);
 
 module.exports = router;
