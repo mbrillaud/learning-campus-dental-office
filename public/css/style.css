@@ -7,6 +7,9 @@ h1, h2, h3, h4, h5, h6 {
 h1 {
     font-size: 1.5rem;
 }
+h2 {
+    font-size: 1.3rem;
+}
 
 .navbar {
     text-transform: uppercase;
@@ -21,4 +24,8 @@ h1 {
 .navbar-brand img {
     height: 100%;
     width: 100%;
+}
+
+.tab-pane {
+    padding: 1rem;
 }
