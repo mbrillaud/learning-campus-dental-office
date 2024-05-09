@@ -66,19 +66,47 @@ showSchedules = (schedules) => {
     const tableBody = document.createElement('tbody');
     schedules.forEach(item => {
         const row = tableBody.insertRow();
-        row.innerHTML = `<th scope="row">${item.weekday}</th><td>${item.morningopeningtime}</td><td>${item.morningclosingtime}</td><td>${item.afternoonopeningtime}</td><td>${item.afternoonclosingtime}</td>`;
+        row.innerHTML = `<th scope="row">${item.weekday}</th>`;
 
-        // Mettre à jour les valeurs des inputs
+        // Mise à jour des valeurs des inputs
         if (item.weekday === document.getElementById('weekday').value) {
             document.getElementById('morningopeningtime').value = item.morningopeningtime;
             document.getElementById('morningclosingtime').value = item.morningclosingtime;
             document.getElementById('afternoonopeningtime').value = item.afternoonopeningtime;
             document.getElementById('afternoonclosingtime').value = item.afternoonclosingtime;
         }
+
+        // Vérifier si les horaires sont "00:00:00" et afficher "fermé" en conséquence
+        if (item.morningopeningtime === "00:00:00" && item.morningclosingtime === "00:00:00" &&
+            item.afternoonopeningtime === "00:00:00" && item.afternoonclosingtime === "00:00:00") {
+            const cell = row.insertCell();
+            cell.colSpan = 4;
+            cell.textContent = "Fermé";
+        } else {
+            if (item.morningopeningtime === "00:00:00" && item.morningclosingtime === "00:00:00") {
+                const cell = row.insertCell();
+                cell.textContent = "Fermé";
+                cell.colSpan = 2;
+            } else {
+                row.innerHTML += `<td>${formatTime(item.morningopeningtime)}</td><td>${formatTime(item.morningclosingtime)}</td>`;
+            }
+
+            if (item.afternoonopeningtime === "00:00:00" && item.afternoonclosingtime === "00:00:00") {
+                const cell = row.insertCell();
+                cell.textContent = "Fermé";
+                cell.colSpan = 2;
+            } else {
+                row.innerHTML += `<td>${formatTime(item.afternoonopeningtime)}</td><td>${formatTime(item.afternoonclosingtime)}</td>`;
+            }
+        }
     });
 
     table.appendChild(tableBody);
     schedulesContainer.appendChild(table);
+}
+
+formatTime = (time) => {
+    return time.slice(0, 5); // Récupère uniquement les 5 premiers caractères (HH:MM)
 }
 
 // Mettre à jour les horaires lors du chargement de la page
