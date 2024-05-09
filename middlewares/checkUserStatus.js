@@ -1,5 +1,5 @@
 const jwt = require('jsonwebtoken');
-
+//Permet d'envoyer des variables d'environnement pour les vues pour afficher certains contenu aux admins ou aux utilisateurs connectés
 module.exports = (req, res, next) => {
     try {
         const token = req.cookies.token;
