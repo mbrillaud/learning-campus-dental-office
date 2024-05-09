@@ -12,7 +12,7 @@ router.get('/', (req, res) => {
     });
 });
 router.get('/bo', auth, function(req, res) {
-    res.render('./bo.njk');
+    res.render('./bo/index.njk');
 });
 router.get('/login', (req, res) => {
     res.render('./login.njk');
