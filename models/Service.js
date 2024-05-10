@@ -7,7 +7,7 @@ const Service = sequelize.define('services', {
     allowNull: false
   },
   description: {
-    type: DataTypes.STRING,
+    type: DataTypes.TEXT,
     allowNull: false
   }
 });
