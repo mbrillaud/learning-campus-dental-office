@@ -1,0 +1,33 @@
+{% extends "../layout.njk" %}
+
+{% block content %}
+    {% include "./menu.njk" %}
+    <div class="container">
+        <h2 class="text-center">Photos</h2>
+
+        {% if photos.length > 0 %}
+            <div class="photos-container">
+                {% for photo in photos %}
+                    <div class="photo-item">
+                        <img src="/{{ photo.url }}" alt="Photo">
+                        <form id="{{photo.id}}" class="photo-form">
+                            <button type="submit">Supprimer</button>
+                        </form>
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <p>Aucune photo disponible.</p>
+        {% endif %}
+
+        <hr>
+
+        <h2>Ajouter une photo</h2>
+        <form id="upload-form">
+            <input type="file" name="image" accept="image/png, image/jpeg, image/jpg">
+            <button type="submit">Envoyer</button>
+        </form>
+    </div>
+
+    <script src="/public/js/photos.js"></script>
+{% endblock %}

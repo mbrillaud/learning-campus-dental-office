@@ -73,3 +73,16 @@ ul {
     display: block;
     margin: 0 auto 2rem auto;
 }
+
+.photos-container {
+    padding: 0;
+    .photo-item {
+        width: 300px;
+        height: 300px;
+        overflow: hidden;
+        img {
+            max-width: 100%;
+            height: auto;
+        };
+    }
+}

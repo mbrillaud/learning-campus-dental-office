@@ -33,30 +33,32 @@ const viewsRoutes = require('./routes/front-end');
 const usersRoutes = require('./routes/users');
 const schedulesRoutes = require('./routes/schedules');
 const servicesRoutes = require('./routes/services');
+const photosRoutes = require('./routes/photos');
 
 app.use('/', viewsRoutes);
 app.use('/api/auth', usersRoutes);
 app.use('/api/schedules', schedulesRoutes);
 app.use('/api/services', servicesRoutes);
+app.use('/api/upload/office', photosRoutes);
 
 
 
 //Sequelize
-sequelize.authenticate()
-    .then(() => {
-        console.log('Connection to the database has been established successfully.');
-    })
-    .catch(err => {
-        console.error('Unable to connect to the database:', err);
-});
+// sequelize.authenticate()
+//     .then(() => {
+//         console.log('Connection to the database has been established successfully.');
+//     })
+//     .catch(err => {
+//         console.error('Unable to connect to the database:', err);
+// });
 
-// sequelize.sync({ force: false })
-//   .then(() => {
-//     console.log('Tables synchronized successfully.');
-//   })
-//   .catch(err => {
-//     console.error('Error synchronizing tables:', err);
-//   });
+sequelize.sync({ force: false })
+  .then(() => {
+    console.log('Tables synchronized successfully.');
+  })
+  .catch(err => {
+    console.error('Error synchronizing tables:', err);
+  });
 
 //Swagger
 const port = helpers.normalizePort(process.env.PORT || '3000');
