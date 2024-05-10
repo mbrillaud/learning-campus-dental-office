@@ -22,8 +22,15 @@ h2 {
         height: 7rem;
         width: auto;
         img {
-            height: 100%;
+            display: block;
+            height: 50%;
             width: 100%;
+            margin: 0 auto;
+        }
+        .brand {
+            display: block;
+            font-size: 1rem;
+            margin: 0 auto;
         }
     }
 }
