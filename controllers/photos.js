@@ -3,7 +3,6 @@ const fs = require('fs');
 
 exports.postPhoto = async (req, res) => {
     try {
-        console.log(req);
       const photo = await Photo.create({url: req.file.path});
       res.status(201).json(photo);
     } catch (error) {

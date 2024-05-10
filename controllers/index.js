@@ -7,7 +7,6 @@ exports.renderIndex = async (req, res) => {
         const services = await Service.findAll();
         const schedules = await Schedules.findAll();
         const photos = await Photo.findAll();
-        console.log('photos : ', photos);
         res.render('index.njk', {
             services: services,
             schedules: schedules,
