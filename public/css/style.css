@@ -10,6 +10,9 @@ h1 {
 h2 {
     font-size: 1.3rem;
 }
+ul {
+    list-style: none;
+}
 .content {
     min-height: calc(100vh - 272px);
 }
@@ -22,8 +25,15 @@ h2 {
         height: 7rem;
         width: auto;
         img {
-            height: 100%;
+            display: block;
+            height: 50%;
             width: 100%;
+            margin: 0 auto;
+        }
+        .brand {
+            display: block;
+            font-size: 1rem;
+            margin: 0 auto;
         }
     }
 }
@@ -37,5 +47,19 @@ h2 {
     margin: 0 auto;
     label {
         min-width: 300px;
+    }
+}
+
+.services-presentation {
+    h4 {
+        padding: 2rem 1rem;
+        text-align: center;
+        font-size: 1.2rem;
+    }
+    li {
+        padding: 1rem 2rem 2rem 2rem;
+        border: 1px solid rgba(0, 0, 0, 0.5);
+        margin-bottom: 2rem;
+        border-radius: 1rem;
     }
 }
