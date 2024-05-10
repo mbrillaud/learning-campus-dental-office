@@ -1,13 +1,15 @@
 {% extends "./layout.njk" %}
 
 {% block content %}
-    <h1 class="text-center pt-5 pb-5">Nos services</h1>
-    <ul>
-        {% for service in services %}
-        <li>
-            <h4>{{service.label}}</h4>
-            <p>{{service.description}}</h4>
-        </li>
-        {% endfor %}
-    </ul>
+    <div class="services-presentation">
+        <h1 class="text-center pt-5 pb-5">Nos services</h1>
+        <ul>
+            {% for service in services %}
+            <li>
+                <h4>{{service.label}}</h4>
+                <p>{{service.description}}</h4>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
 {% endblock %}
