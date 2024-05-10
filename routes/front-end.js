@@ -1,17 +1,12 @@
 const express = require('express');
 const auth = require('../middlewares/auth');
 const servicesCtrl = require('../controllers/services');
+const indexCtrl = require('../controllers/index');
 const router = express.Router();
 
 const { logout } = require('../controllers/users');
 
-router.get('/', (req, res) => {
-    console.log('res.locals', res.locals);
-    res.render('./index.njk', {
-        isAuthenticated: res.locals.isAuthenticated,
-        isAdmin: res.locals.isAdmin
-    });
-});
+router.get('/', indexCtrl.renderIndex);
 router.get('/bo', auth, function(req, res) {
     res.render('./bo/index.njk');
 });

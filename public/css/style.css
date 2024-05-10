@@ -56,10 +56,20 @@ ul {
         text-align: center;
         font-size: 1.2rem;
     }
-    li {
-        padding: 1rem 2rem 2rem 2rem;
-        border: 1px solid rgba(0, 0, 0, 0.5);
-        margin-bottom: 2rem;
-        border-radius: 1rem;
+    ul {
+        padding: 0;
+        li {
+            padding: 1rem 2rem 2rem 2rem;
+            border: 1px solid rgba(0, 0, 0, 0.5);
+            margin-bottom: 2rem;
+            border-radius: .25rem;
+        }
     }
+}
+.home-slider {
+    margin-top: 1rem;
+}
+.get-appointment {
+    display: block;
+    margin: 0 auto 2rem auto;
 }
