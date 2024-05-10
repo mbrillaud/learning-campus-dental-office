@@ -73,3 +73,25 @@ ul {
     display: block;
     margin: 0 auto 2rem auto;
 }
+
+.photos-container {
+    padding: 0;
+    .photo-item {
+        width: 300px;
+        height: 300px;
+        overflow: hidden;
+        img {
+            max-width: 100%;
+            height: auto;
+        };
+    }
+}
+.carousel-item {
+    height: 400px;
+    img {
+        translate: 0 50%;
+        margin-top: -50%;
+        max-width: 100%;
+        height: auto;
+    }
+}
