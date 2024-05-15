@@ -34,13 +34,14 @@ const usersRoutes = require('./routes/users');
 const schedulesRoutes = require('./routes/schedules');
 const servicesRoutes = require('./routes/services');
 const photosRoutes = require('./routes/photos');
+const newsRoutes = require('./routes/news');
 
 app.use('/', viewsRoutes);
 app.use('/api/auth', usersRoutes);
 app.use('/api/schedules', schedulesRoutes);
 app.use('/api/services', servicesRoutes);
 app.use('/api/upload/office', photosRoutes);
-
+app.use('/api/news', newsRoutes);
 
 
 //Sequelize
@@ -67,7 +68,7 @@ const swaggerOptions = {
     openapi: '3.0.0',
     info: {
       version: '1.0.0',
-      title: 'Car Rent',
+      title: 'Dental Office API',
       description: 'Learning Campus Dental Office API documentation',
       contact: {
         name: 'MBrillaud'

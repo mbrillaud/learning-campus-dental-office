@@ -4,7 +4,58 @@
     {% include "./menu.njk" %}
     <div class="container">
         <h2 class="text-center">News</h2>
-    </div>
 
-    <script src="/public/js/services.js"></script>
+        {% if news.length > 0 %}
+            {% for single_news in news %}
+                <div class="news-item">
+                    <h3>{{ single_news.title }}</h3>
+                    <img src="../{{ single_news.imageUrl }}" alt="">
+                    <div class="news-content hidden">{{ single_news.content | safe }}</div>
+                    <form id="{{ single_news.id }}" class="news-form">
+                        <button  class="btn btn-secondary show-text">Afficher/masquer le texte</button>
+                        <button type="submit" class="btn btn-danger">Supprimer</button>
+                    </form>
+                </div>
+            {% endfor %}
+        {% else %}
+            <p>Aucune news n'est présente pour le moment.</p>
+        {% endif %}
+
+        <h3>Ajouter une news</h3>
+
+        <form id="news-form">
+            <div class="form-group">
+                <label for="image">Image :</label>
+                <input type="file" id="image" name="image" accept="image/*" class="form-control-file">
+            </div>
+            <div class="form-group">
+                <label for="title">Titre :</label>
+                <input type="text" id="title" name="title" class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="content">Contenu :</label>
+                <textarea id="content" name="content" class="form-control"></textarea>
+            </div>
+            <div class="form-group">
+                <label for="date">Date :</label>
+                <input type="date" id="date" name="date" class="form-control">
+            </div>
+            <button type="submit" class="btn btn-success">Ajouter</button>
+        </form>
+
+
+    <!-- Chargement de TinyMCE -->
+    <script src="https://cdn.tiny.cloud/1/e51sqbr6pdu8753fbmua9la2hr1hccefjsh08ol7hstnn8sa/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+    <script>
+        tinymce.init({
+            selector: 'textarea#content',
+            plugins: 'autoresize',
+            toolbar: 'undo redo | formatselect | bold italic underline | alignleft aligncenter alignright | bullist numlist outdent indent',
+            menubar: false,
+            statusbar: false,
+            autoresize_bottom_margin: 16,
+            autoresize_min_height: 150
+        });
+    </script>
+    <script src="/public/js/news.js"></script>
 {% endblock %}

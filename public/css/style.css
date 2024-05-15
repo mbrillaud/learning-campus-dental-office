@@ -10,8 +10,14 @@ h1 {
 h2 {
     font-size: 1.3rem;
 }
+h3 {
+    font-size: 1.1rem;
+}
 ul {
     list-style: none;
+}
+.hidden {
+    display: none;
 }
 .content {
     min-height: calc(100vh - 272px);
@@ -93,5 +99,14 @@ ul {
         margin-top: -50%;
         max-width: 100%;
         height: auto;
+    }
+}
+
+.news-item {
+    margin-bottom: 2rem;
+    img {
+        width: 300px;
+        height: auto;
+        margin-bottom: 1rem;
     }
 }

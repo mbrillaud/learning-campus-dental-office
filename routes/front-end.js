@@ -3,6 +3,7 @@ const auth = require('../middlewares/auth');
 const servicesCtrl = require('../controllers/services');
 const indexCtrl = require('../controllers/index');
 const photosCtrl = require('../controllers/photos');
+const newsCtrl = require('../controllers/news');
 const router = express.Router();
 
 
@@ -18,9 +19,8 @@ router.get('/bo/schedules', auth, function(req, res) {
 });
 
 router.get('/bo/services', auth, servicesCtrl.renderServicesBO);
-router.get('/bo/news', auth, function(req, res) {
-    res.render('./bo/news.njk');
-});
+
+router.get('/bo/news', auth, newsCtrl.renderNewsBO);
 
 router.get('/bo/photos', auth, photosCtrl.renderPhotos);
 
