@@ -9,12 +9,16 @@ const News = sequelize.define('news', {
     allowNull: false
   },
   content: {
-    type: DataTypes.STRING,
+    type: DataTypes.TEXT,
     allowNull: false
   },
   imageUrl: {
     type: DataTypes.STRING,
     allowNull: true
+  },
+  userId: {
+    type: DataTypes.INTEGER,
+    allowNull: false
   },
   date: {
     type: DataTypes.DATE,
@@ -22,6 +26,6 @@ const News = sequelize.define('news', {
   }
 });
 
-News.belongsTo(User, { foreignKey: 'id', as: 'author' });
+News.belongsTo(User, { foreignKey: 'userId', as: 'author' });
 
 module.exports = News;
