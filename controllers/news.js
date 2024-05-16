@@ -77,3 +77,12 @@ exports.renderNewsBO = async (req, res) => {
         res.status(500).json({ error });
     }
 }
+
+exports.renderSingleNews = async (req, res) => {
+    try {
+        const news = await News.findOne({ where: { id: req.params.id } });
+        res.render('single_news.njk', { news: news });
+    } catch (error) {
+        res.status(500).json({ error });
+    }
+}

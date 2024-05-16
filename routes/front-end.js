@@ -38,9 +38,8 @@ router.get('/signup', (req, res) => {
 
 router.get('/logout', logout);
 
-router.get('/news', (req, res) => {
-    res.render('./news.njk');
-});
+router.get('/news', newsCtrl.renderNews);
+router.get('/news/:id', newsCtrl.renderSingleNews);
 
 router.get('/appointment', (req, res) => {
     res.render('./appointment.njk');

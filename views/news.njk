@@ -1,5 +1,23 @@
 {% extends "./layout.njk" %}
 
 {% block content %}
-    <h1 class="text-center pt-5 pb-5">News</h1>
+    <h1 class="text-center pt-5 pb-5">Actualités</h1>
+    {% if news.length > 0 %}
+        <div class="row">
+            {% for single_news in news %}
+                <div class="col-md-4 mb-4">
+                    <div class="card">
+                        <img src="../{{ single_news.imageUrl }}" class="card-img-top" alt="{{ single_news.title }}">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ single_news.title }}</h5>
+                            <div class="card-text news-excerpt">{{ single_news.content | safe }}</div>
+                            <a href="/news/{{ single_news.id }}" class="btn btn-primary">Lire la suite</a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p class="text-center">Aucune news n'est présente pour le moment.</p>
+    {% endif %}
 {% endblock %}
