@@ -52,4 +52,5 @@ L'application se divise en deux grandes parties :
 
 
 ## Notes
-- Diagramme de classe : https://drive.google.com/file/d/1QxpD6kzZo02YJPceZ4SohObwG0Fje8xc/view?usp=sharing
+- Diagramme de classe : [https://drive.google.com/file/d/1QxpD6kzZo02YJPceZ4SohObwG0Fje8xc/view?usp=sharing](https://drive.google.com/file/d/1QxpD6kzZo02YJPceZ4SohObwG0Fje8xc/view?usp=sharing)
+- Documentation API : /api-docs
