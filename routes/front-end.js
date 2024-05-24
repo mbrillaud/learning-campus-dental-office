@@ -10,21 +10,21 @@ const router = express.Router();
 const { logout } = require('../controllers/users');
 
 router.get('/', indexCtrl.renderIndex);
-router.get('/bo', auth, function(req, res) {
+router.get('/bo', auth, isAdmin, function(req, res) {
     res.render('./bo/index.njk');
 });
 
-router.get('/bo/schedules', auth, function(req, res) {
+router.get('/bo/schedules', auth, isAdmin, function(req, res) {
     res.render('./bo/schedules.njk');
 });
 
-router.get('/bo/services', auth, servicesCtrl.renderServicesBO);
+router.get('/bo/services', auth, isAdmin, servicesCtrl.renderServicesBO);
 
-router.get('/bo/news', auth, newsCtrl.renderNewsBO);
+router.get('/bo/news', auth, isAdmin, newsCtrl.renderNewsBO);
 
-router.get('/bo/photos', auth, photosCtrl.renderPhotos);
+router.get('/bo/photos', auth, isAdmin, photosCtrl.renderPhotos);
 
-router.get('/bo/appointments', auth, function(req, res) {
+router.get('/bo/appointments', auth, isAdmin, function(req, res) {
     res.render('./bo/appointments.njk');
 });
 
