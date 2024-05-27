@@ -5,40 +5,49 @@ const router = express.Router();
 
 /**
  * @swagger
+ * tags:
+ *   name: Auth
+ *   description: Opérations liées à l'authentification des utilisateurs
+ */
+
+/**
+ * @swagger
  * definitions:
  *   User:
  *     type: object
  *     properties:
  *       firstName:
  *         type: string
- *         description: User's first name
+ *         description: Prénom de l'utilisateur
  *       lastName:
  *         type: string
- *         description: User's last name
+ *         description: Nom de famille de l'utilisateur
  *       email:
  *         type: string
  *         format: email
- *         description: User's email address
+ *         description: Adresse e-mail de l'utilisateur
  *       phone:
  *         type: string
- *         description: User's phone number
+ *         description: Numéro de téléphone de l'utilisateur
  *       password:
  *         type: string
- *         description: User's password
+ *         description: Mot de passe de l'utilisateur
  *       service:
  *         type: string
- *         description: User's service (optional)
+ *         description: Service de l'utilisateur (optionnel)
  *       status:
  *         type: string
- *         description: User's status (optional)
+ *         description: Statut de l'utilisateur (optionnel)
  */
 
 /**
  * @swagger
  * /signup:
  *   post:
- *     summary: User signup
- *     description: Allows a user to sign up by providing basic information.
+ *     tags: 
+ *       - Auth
+ *     summary: Inscription utilisateur
+ *     description: Permet à un utilisateur de s'inscrire en fournissant des informations de base.
  *     consumes:
  *       - application/json
  *     produces:
@@ -46,27 +55,27 @@ const router = express.Router();
  *     parameters:
  *       - in: body
  *         name: user
- *         description: User information for signup
+ *         description: Informations de l'utilisateur pour l'inscription
  *         required: true
  *         schema:
  *           $ref: '#/definitions/User'
  *     responses:
  *       200:
- *         description: User signed up successfully
+ *         description: Utilisateur inscrit avec succès
  *       400:
- *         description: Invalid request, check the provided parameters
+ *         description: Requête invalide, vérifiez les paramètres fournis
  *       409:
- *         description: User with this email address or phone number already exists
+ *         description: Un utilisateur avec cette adresse e-mail ou ce numéro de téléphone existe déjà
  */
-
-router.post('/signup', usersCtrl.signup);
 
 /**
  * @swagger
  * /login:
  *   post:
- *     summary: User login
- *     description: Allows a user to log in by providing credentials.
+ *     tags:
+ *       - Auth
+ *     summary: Connexion utilisateur
+ *     description: Permet à un utilisateur de se connecter en fournissant des identifiants.
  *     consumes:
  *       - application/json
  *     produces:
@@ -74,7 +83,7 @@ router.post('/signup', usersCtrl.signup);
  *     parameters:
  *       - in: body
  *         name: credentials
- *         description: User credentials for login
+ *         description: Identifiants de l'utilisateur pour la connexion
  *         required: true
  *         schema:
  *           type: object
@@ -82,19 +91,54 @@ router.post('/signup', usersCtrl.signup);
  *             email:
  *               type: string
  *               format: email
- *               description: User's email address
+ *               description: Adresse e-mail de l'utilisateur
  *             password:
  *               type: string
- *               description: User's password
+ *               description: Mot de passe de l'utilisateur
  *     responses:
  *       200:
- *         description: Login successful, authentication token generated
+ *         description: Connexion réussie, jeton d'authentification généré
  *       400:
- *         description: Invalid request, check the provided parameters
+ *         description: Requête invalide, vérifiez les paramètres fournis
  *       401:
- *         description: Invalid credentials, login failed
+ *         description: Identifiants invalides, échec de la connexion
  */
 
+/**
+ * @swagger
+ * /{id}:
+ *   put:
+ *     tags:
+ *       - Auth
+ *     summary: Mise à jour d'un utilisateur
+ *     description: Met à jour les informations d'un utilisateur existant.
+ *     consumes:
+ *       - application/json
+ *     produces:
+ *       - application/json
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         description: ID de l'utilisateur à mettre à jour
+ *         required: true
+ *         type: string
+ *       - in: body
+ *         name: user
+ *         description: Informations mises à jour de l'utilisateur
+ *         required: true
+ *         schema:
+ *           $ref: '#/definitions/User'
+ *     responses:
+ *       200:
+ *         description: Utilisateur mis à jour avec succès
+ *       400:
+ *         description: Requête invalide, vérifiez les paramètres fournis
+ *       404:
+ *         description: Utilisateur non trouvé
+ */
+
+router.post('/signup', usersCtrl.signup);
 router.post('/login', usersCtrl.login);
+router.put('/:id', usersCtrl.updateUser);
 
 module.exports = router;

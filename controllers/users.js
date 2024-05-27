@@ -83,3 +83,27 @@ exports.logout = (req, res) => {
     res.clearCookie('token');
     res.redirect('/');
 };
+
+exports.updateUser = async (req, res) => {
+    try {
+        const user = await User.findByPk(req.params.id);
+        if (!user) {
+            res.status(404).json({ error: 'User not found' });
+            return;
+        }
+        const updatedUser = await user.update(req.body);
+        res.status(200).json(updatedUser);
+    } catch (error) {
+        res.status(500).json({ error });
+    }
+}
+
+
+exports.renderUsers = async (req, res) => {
+    try {
+        const users = await User.findAll();
+        res.render('bo/users.njk', { users: users });
+    } catch (error) {
+        res.status(500).json({ error });
+    }
+}

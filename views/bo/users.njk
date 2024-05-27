@@ -1,0 +1,54 @@
+{% extends "../layout.njk" %}
+
+{% block content %}
+    <h1 class="text-center pt-5 pb-5">Utilisateurs</h1>
+    {% if users.length > 0 %}
+        <div class="form-group">
+            <label for="users-list">Sélectionnez un utilisateur</label>
+            <select id="users-list" class="form-control">
+                {% for user in users %}
+                    <option value="{{ user.id }}"
+                        data-id="{{ user.id }}"
+                        data-firstName="{{ user.firstName }}"
+                        data-lastName="{{ user.lastName }}"
+                        data-email="{{ user.email }}"
+                        data-phone="{{ user.phone }}"
+                        data-role="{{ user.role }}"
+                        >{{ user.firstName }} {{ user.lastName }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <!-- Formulaire de modification des informations utilisateur -->
+        <form id="user-form" class="user-form mt-4" style="display: none;">
+            <div class="form-group">
+                <label for="user-id">ID</label>
+                <input type="text" id="user-id" name="id" class="form-control" readonly>
+            </div>
+            <div class="form-group">
+                <label for="user-firstName">Prénom</label>
+                <input type="text" id="user-firstName" name="firstName" class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="user-lastName">Nom</label>
+                <input type="text" id="user-lastName" name="lastName" class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="user-email">Email</label>
+                <input type="email" id="user-email" name="email" class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="user-phone">Téléphone</label>
+                <input type="text" id="user-phone" name="phone" class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="user-role">Rôle</label>
+                <input type="text" id="user-role" name="role" class="form-control">
+            </div>
+            <button type="submit" class="btn btn-primary">Enregistrer</button>
+        </form>
+    {% else %}
+        <p>Aucun utilisateur à afficher</p>
+    {% endif %}
+    <script src="/public/js/users.js"></script>
+{% endblock %}
