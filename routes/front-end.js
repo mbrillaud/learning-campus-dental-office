@@ -6,6 +6,7 @@ const indexCtrl = require('../controllers/index');
 const photosCtrl = require('../controllers/photos');
 const newsCtrl = require('../controllers/news');
 const usersCtrl = require('../controllers/users');
+const appointmentsCtrl = require('../controllers/appointments');
 const router = express.Router();
 
 
@@ -45,9 +46,7 @@ router.get('/logout', logout);
 router.get('/news', newsCtrl.renderNews);
 router.get('/news/:id', newsCtrl.renderSingleNews);
 
-router.get('/appointment', (req, res) => {
-    res.render('./appointment.njk');
-});
+router.get('/appointment', auth, appointmentsCtrl.renderAppointmentsForm);
 router.get('/services', servicesCtrl.renderServices);
 
 

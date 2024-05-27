@@ -14,6 +14,14 @@ const Appointment = sequelize.define('appointments', {
     type: DataTypes.DATE,
     allowNull: false
   },
+  userId: {
+    type: DataTypes.INTEGER,
+    allowNull: false
+  },
+  serviceId: {
+    type: DataTypes.INTEGER,
+    allowNull: false
+  },
   status: {
     type: DataTypes.ENUM('pending', 'confirmed', 'cancelled'),
     allowNull: false,
@@ -21,7 +29,8 @@ const Appointment = sequelize.define('appointments', {
   }
 });
 
-Appointment.belongsTo(User, { foreignKey: 'id', as: 'patient' });
-Appointment.belongsTo(Service, { foreignKey: 'id', as: 'service' });
+// Correction des associations avec les bonnes clés étrangères
+Appointment.belongsTo(User, { foreignKey: 'userId', as: 'patient' });
+Appointment.belongsTo(Service, { foreignKey: 'serviceId', as: 'service' });
 
 module.exports = Appointment;
