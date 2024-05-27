@@ -1,9 +1,11 @@
 const express = require('express');
 const auth = require('../middlewares/auth');
+const isAdmin = require('../middlewares/isAdmin');
 const servicesCtrl = require('../controllers/services');
 const indexCtrl = require('../controllers/index');
 const photosCtrl = require('../controllers/photos');
 const newsCtrl = require('../controllers/news');
+const usersCtrl = require('../controllers/users');
 const router = express.Router();
 
 
@@ -23,6 +25,8 @@ router.get('/bo/services', auth, isAdmin, servicesCtrl.renderServicesBO);
 router.get('/bo/news', auth, isAdmin, newsCtrl.renderNewsBO);
 
 router.get('/bo/photos', auth, isAdmin, photosCtrl.renderPhotos);
+
+router.get('/bo/users', auth, isAdmin, usersCtrl.renderUsers);
 
 router.get('/bo/appointments', auth, isAdmin, function(req, res) {
     res.render('./bo/appointments.njk');
