@@ -35,6 +35,7 @@ const schedulesRoutes = require('./routes/schedules');
 const servicesRoutes = require('./routes/services');
 const photosRoutes = require('./routes/photos');
 const newsRoutes = require('./routes/news');
+const appointmentsRoutes = require('./routes/appointments');
 
 app.use('/', viewsRoutes);
 app.use('/api/auth', usersRoutes);
@@ -42,7 +43,7 @@ app.use('/api/schedules', schedulesRoutes);
 app.use('/api/services', servicesRoutes);
 app.use('/api/upload/office', photosRoutes);
 app.use('/api/news', newsRoutes);
-
+app.use('/api/appointments', appointmentsRoutes);
 
 //Sequelize
 // sequelize.authenticate()

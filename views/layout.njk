@@ -18,6 +18,7 @@
   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <script src="/public/js/toasthandler.js"></script>
 
 </head>
 
@@ -82,7 +83,32 @@
       </div>
     </div>
   </footer>
-
+  <div aria-live="polite" aria-atomic="true" style="position: relative;">
+  <div id="toast-container" style="position: fixed; bottom: 10px; right: 10px; z-index: 1050;">
+    <div id="error-toast" class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-delay="5000">
+      <div class="toast-header">
+        <strong class="mr-auto text-danger">Erreur</strong>
+        <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="toast-body">
+        <!-- Message d'erreur sera inséré ici -->
+      </div>
+    </div>
+    <div id="success-toast" class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-delay="5000">
+      <div class="toast-header">
+        <strong class="mr-auto text-success">Succès</strong>
+        <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="toast-body">
+        <!-- Message de succès sera inséré ici -->
+      </div>
+    </div>
+  </div>
+</div>
   {% block scripts %}{% endblock %}
 </body>
 

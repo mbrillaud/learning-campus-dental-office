@@ -1,5 +1,54 @@
 {% extends "./layout.njk" %}
-
 {% block content %}
-    <h1 class="text-center pt-5 pb-5">Rendez-vous</h1>
+    <h1 class="text-center pt-5 pb-5">Prendre rendez-vous</h1>
+    <form id="appointment-form">
+        <div class="form-group">
+            <label for="day">Choisir le jour :</label>
+            <select class="form-control" id="day" name="day">
+                {% for slot in availableSlots %}
+                    {% set date = slot.split(' ')[0] %}
+                    {% if date != previousDate %}
+                        <option value="{{ date }}">{{ date }}</option>
+                        {% set previousDate = date %}
+                    {% endif %}
+                {% endfor %}
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="time">Choisir l'heure :</label>
+            <select class="form-control" id="time" name="time">
+                {% for slot in availableSlots %}
+                    {% set date = slot.split(' ')[0] %}
+                    {% set time = slot.split(' ')[1] %}
+                    {% if date == selectedDate %}
+                        <option value="{{ time }}">{{ time }}</option>
+                    {% endif %}
+                {% endfor %}
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="service">Choisir le service :</label>
+            <select class="form-control" id="service" name="service">
+                {% for service in services %}
+                    {% if loop.index != 1 %}
+                        <option value="{{ service.id }}">{{ service.label }}</option>
+                    {% endif %}
+                {% endfor %}
+            </select>
+        </div>
+        <input type="hidden" id="user-id" value="{{userId}}"/>
+        <button type="submit" class="btn btn-primary">Valider</button>
+    </form>
 {% endblock %}
+
+
+{% block scripts %}
+    <script src="/public/js/appointments.js"></script>
+    <script>
+        const data = "{{ availableSlots }}";
+        const slots = data.split(',');
+        const splittedSlots = JSON.stringify(slots);
+        const availableSlots = JSON.parse(splittedSlots);
+    </script>
+{% endblock %}
+
