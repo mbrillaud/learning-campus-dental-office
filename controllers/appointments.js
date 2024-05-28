@@ -1,6 +1,7 @@
 const Appointment = require('../models/Appointment');
 const Service = require('../models/Service');
 const Schedules = require('../models/Schedules');
+const User = require('../models/User');
 const { Op } = require('sequelize');
 const moment = require('moment');
 
@@ -24,6 +25,32 @@ exports.renderAppointmentsForm = async (req, res) => {
 };
 
 /**
+ * Renders the appointments page for the back office.
+ *
+ * @param {Object} req - The request object.
+ * @param {Object} res - The response object.
+ * @return {Promise<void>} - The function does not return a value.
+ */
+exports.renderAppointmentsBO = async (req, res) => {
+    try {
+        const appointments = await Appointment.findAll({ include: { model: User, as: 'patient' } });
+        res.render('bo/appointments.njk', { appointments });
+    } catch (error) {
+        console.log('error:', error);
+        res.status(500).json({ error });
+    }
+};
+
+
+
+/**
+ * Adds or updates an appointment based on the provided request body.
+ *
+ * @param {Object} req - The request object containing the appointment data.
+ * @param {Object} res - The response object.
+ * @return {Promise<void>} - A promise that resolves when the appointment is added or updated successfully.
+ */
+/**
  * Adds or updates an appointment based on the provided request body.
  *
  * @param {Object} req - The request object containing the appointment data.
@@ -41,19 +68,27 @@ exports.addOrUpdateAppointment = async (req, res) => {
             await appointment.update(req.body);
             res.status(200).json(appointment);
         } else {
-            //check if appointment already exists at this date
-            const existingAppointment = await Appointment.findOne({ where: { date: req.body.date } });
+            // check if appointment already exists at this date and is not cancelled
+            const existingAppointment = await Appointment.findOne({
+                where: {
+                    date: req.body.date,
+                    status: {
+                        [Op.ne]: 'cancelled'
+                    }
+                }
+            });
             if (existingAppointment) {
                 res.status(400).json({ error: 'Un rendez-vous existe déjà à cette heure' });
                 return;
             }
             const appointment = await Appointment.create(req.body);
-            res.status(201).json({message : 'Le rendez-vous a été enregistré'});
+            res.status(201).json({ message: 'Le rendez-vous a été enregistré' });
         }
     } catch (error) {
         res.status(500).json({ error });
     }
-}
+};
+
 
 /**
  * Retrieves the available slots and services for the next 7 days.
