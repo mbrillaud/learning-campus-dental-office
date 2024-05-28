@@ -29,9 +29,7 @@ router.get('/bo/photos', auth, isAdmin, photosCtrl.renderPhotos);
 
 router.get('/bo/users', auth, isAdmin, usersCtrl.renderUsers);
 
-router.get('/bo/appointments', auth, isAdmin, function(req, res) {
-    res.render('./bo/appointments.njk');
-});
+router.get('/bo/appointments', auth, isAdmin, appointmentsCtrl.renderAppointmentsBO);
 
 router.get('/login', (req, res) => {
     res.render('./login.njk');

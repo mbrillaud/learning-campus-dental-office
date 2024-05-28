@@ -1,6 +1,7 @@
 const Appointment = require('../models/Appointment');
 const Service = require('../models/Service');
 const Schedules = require('../models/Schedules');
+const User = require('../models/User');
 const { Op } = require('sequelize');
 const moment = require('moment');
 
@@ -22,6 +23,25 @@ exports.renderAppointmentsForm = async (req, res) => {
         res.status(500).json({ error: 'An error occurred while fetching available slots.' });
     }
 };
+
+/**
+ * Renders the appointments page for the back office.
+ *
+ * @param {Object} req - The request object.
+ * @param {Object} res - The response object.
+ * @return {Promise<void>} - The function does not return a value.
+ */
+exports.renderAppointmentsBO = async (req, res) => {
+    try {
+        const appointments = await Appointment.findAll({ include: { model: User, as: 'patient' } });
+        res.render('bo/appointments.njk', { appointments });
+    } catch (error) {
+        console.log('error:', error);
+        res.status(500).json({ error });
+    }
+};
+
+
 
 /**
  * Adds or updates an appointment based on the provided request body.
