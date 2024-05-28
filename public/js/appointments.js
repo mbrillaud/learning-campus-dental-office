@@ -59,4 +59,21 @@ window.onload = function() {
         });
     };
 
+    function formatDayOptions() {
+        const daySelect = document.getElementById('day');
+        const options = daySelect.options;
+        for (let i = 0; i < options.length; i++) {
+            const option = options[i];
+            const date = new Date(option.value);
+            const formattedDate = date.toLocaleDateString("fr-FR", {
+                weekday: "long",
+                year: "numeric",
+                month: "long",
+                day: "numeric",
+            });
+            option.text = formattedDate;
+        }
+    }
+    formatDayOptions();
+
 }

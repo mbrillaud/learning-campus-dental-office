@@ -7,9 +7,8 @@
             <select class="form-control" id="day" name="day">
                 {% for slot in availableSlots %}
                     {% set date = slot.split(' ')[0] %}
-                    {% set formattedDate = date.split('-')[2] + '-' + date.split('-')[1] + '-' + date.split('-')[0] %}
                     {% if date != previousDate %}
-                        <option value="{{ date }}">{{ formattedDate }}</option>
+                        <option value="{{ date }}">{{ date }}</option>
                         {% set previousDate = date %}
                     {% endif %}
                 {% endfor %}
