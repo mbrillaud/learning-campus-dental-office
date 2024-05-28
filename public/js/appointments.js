@@ -31,8 +31,32 @@ window.onload = function() {
         event.preventDefault();
         const selectedDate = document.getElementById('day').value;
         const selectedTime = document.getElementById('time').value;
-        const dateTime = `${selectedDate} ${selectedTime}`;
-        //saveAppointment(selectedDate, selectedTime, name, email, phone, service, message);
+        const date = `${selectedDate} ${selectedTime}`;
+        const userId = document.getElementById('user-id').value;
+        const serviceId = document.getElementById('service').value;
+        const status = "pending";
+        const data = { date, userId, serviceId, status };
+        saveAppointment(data);
     });
+
+    const saveAppointment = (data) => {
+        fetch('../api/appointments', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        })
+        .then(response => response.json())
+        .then(data => {
+            if(data.error) {
+                showToast(data.error, 'error');
+            } else {
+                showToast(data.message, 'success');}
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+    };
 
 }

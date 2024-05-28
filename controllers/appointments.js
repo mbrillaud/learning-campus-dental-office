@@ -6,13 +6,63 @@ const moment = require('moment');
 
 moment.locale('fr');
 
-exports.getAvailableSlots = async (req, res) => {
+/**
+ * Renders the appointments form with available slots and services.
+ *
+ * @param {Object} req - The request object.
+ * @param {Object} res - The response object.
+ * @return {Promise<void>} - The function does not return a value.
+ */
+exports.renderAppointmentsForm = async (req, res) => {
+    try {
+        const { availableSlots, services } = await getAvailableSlots(req, res); // Appel de la fonction getAvailableSlots et récupération des données
+        res.render('appointment.njk', { availableSlots, services, userId: req.auth.userId }); // Passage des données au template
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'An error occurred while fetching available slots.' });
+    }
+};
+
+exports.addOrUpdateAppointment = async (req, res) => {
+    console.log('addOrUpdateAppointment', req.body);
+    try {
+        if(req.params.id) {
+            const appointment = await Appointment.findOne({ where: { id: req.params.id } });
+            if (!appointment) {
+                res.status(404).json({ error: 'Appointment not found' });
+                return;
+            }
+            await appointment.update(req.body);
+            res.status(200).json(appointment);
+        } else {
+            //check if appointment already exists at this date
+            const existingAppointment = await Appointment.findOne({ where: { date: req.body.date } });
+            if (existingAppointment) {
+                res.status(400).json({ error: 'Un rendez-vous existe déjà à cette heure' });
+                return;
+            }
+            const appointment = await Appointment.create(req.body);
+            res.status(201).json({message : 'Le rendez-vous a été enregistré'});
+        }
+    } catch (error) {
+        res.status(500).json({ error });
+    }
+}
+
+/**
+ * Retrieves the available slots and services for the next 7 days.
+ *
+ * @param {Object} req - The request object.
+ * @param {Object} res - The response object.
+ * @return {Promise<Object>} An object containing the available slots and services.
+ * @throws {Error} If an error occurs while fetching the available slots.
+ */
+const getAvailableSlots = async (req, res) => {
     try {
         // Récupérer les horaires d'ouverture
         const schedules = await Schedules.findAll();
-        const services = await Service.findAll({
-            attributes: ['label']
-        });
+        const services = await Service.findAll();
+        console.log('services', services);
 
         // Générer les plages horaires pour les 7 prochains jours
         const availableSlots = [];
@@ -46,19 +96,8 @@ exports.getAvailableSlots = async (req, res) => {
 
         return {
             availableSlots: filteredSlots,
-            services: services.map(service => service.label)
+            services: [...services]
         };
-    } catch (error) {
-        console.error(error);
-        res.status(500).json({ error: 'An error occurred while fetching available slots.' });
-    }
-};
-
-exports.renderAppointmentsForm = async (req, res) => {
-    try {
-        const { availableSlots, services } = await this.getAvailableSlots(req, res); // Appel de la fonction getAvailableSlots et récupération des données
-        console.log({ availableSlots, services })
-        res.render('appointment.njk', { availableSlots, services, userId: req.auth.userId }); // Passage des données au template
     } catch (error) {
         console.error(error);
         res.status(500).json({ error: 'An error occurred while fetching available slots.' });

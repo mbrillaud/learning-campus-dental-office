@@ -32,7 +32,7 @@
             <select class="form-control" id="service" name="service">
                 {% for service in services %}
                     {% if loop.index != 1 %}
-                        <option value="{{ service }}">{{ service }}</option>
+                        <option value="{{ service.id }}">{{ service.label }}</option>
                     {% endif %}
                 {% endfor %}
             </select>

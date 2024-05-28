@@ -4,6 +4,6 @@ const auth = require('../middlewares/auth');
 
 const appointmentsCtrl = require('../controllers/appointments');
 
-router.get('/slots', auth, appointmentsCtrl.getAvailableSlots);
+router.post('/', auth, appointmentsCtrl.addOrUpdateAppointment);
 
 module.exports = router;
