@@ -27,6 +27,7 @@
                         <li class="list-group-item" data-id="{{ appointment.id }}" data-date="{{ appointment.date }}" data-name="{{ appointment.patient.dataValues.firstName }} {{ appointment.patient.dataValues.lastName }}" data-status="{{ appointment.status }}">
                             <strong>ID:</strong> {{ appointment.id }}<br>
                             <strong>Date:</strong> <span class="appointment-date" data-date="{{ appointment.date }}"></span><br>
+                            <strong>Service:</strong> {{ appointment.service.dataValues.label }}<br>
                             <strong>Patient:</strong> {{ appointment.patient.dataValues.firstName }} {{ appointment.patient.dataValues.lastName }}<br>
                             <div class="form-group">
                                 <label for="statusSelect_{{ appointment.id }}">Changer le statut:</label>
