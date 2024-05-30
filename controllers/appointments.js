@@ -33,7 +33,7 @@ exports.renderAppointmentsForm = async (req, res) => {
  */
 exports.renderAppointmentsBO = async (req, res) => {
     try {
-        const appointments = await Appointment.findAll({ include: [{ model: User, as: 'patient' }, { model: Service, as: 'service' }] });
+        const appointments = await Appointment.findAll({ include: [{ model: User }, { model: Service }] });
         res.render('bo/appointments.njk', { appointments });
     } catch (error) {
         console.log('error:', error);

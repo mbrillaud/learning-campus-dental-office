@@ -24,11 +24,11 @@
             <div class="col-md-12">
                 <ul id="appointmentList" class="list-group">
                     {% for appointment in appointments %}
-                        <li class="list-group-item" data-id="{{ appointment.id }}" data-date="{{ appointment.date }}" data-name="{{ appointment.patient.dataValues.firstName }} {{ appointment.patient.dataValues.lastName }}" data-status="{{ appointment.status }}">
+                        <li class="list-group-item" data-id="{{ appointment.id }}" data-date="{{ appointment.date }}" data-name="{{ appointment.user.dataValues.firstName }} {{ appointment.user.dataValues.lastName }}" data-status="{{ appointment.status }}">
                             <strong>ID:</strong> {{ appointment.id }}<br>
                             <strong>Date:</strong> <span class="appointment-date" data-date="{{ appointment.date }}"></span><br>
                             <strong>Service:</strong> {{ appointment.service.dataValues.label }}<br>
-                            <strong>Patient:</strong> {{ appointment.patient.dataValues.firstName }} {{ appointment.patient.dataValues.lastName }}<br>
+                            <strong>Patient:</strong> {{ appointment.user.dataValues.firstName }} {{ appointment.user.dataValues.lastName }}<br>
                             <div class="form-group">
                                 <label for="statusSelect_{{ appointment.id }}">Changer le statut:</label>
                                 <select class="form-control" id="statusSelect_{{ appointment.id }}">
