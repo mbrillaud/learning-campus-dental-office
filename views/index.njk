@@ -17,51 +17,54 @@
 </div>
 
     <div class="services-presentation">
-        <h1 class="text-center pt-5 pb-5">Nos services</h1>
         <ul>
             {% for service in services %}
             <li>
-                <h4>{{service.label}}</h4>
-                <p>{{service.description}}</h4>
+                {% if loop.first %}
+                    <h4>{{service.label}}</h4>
+                    <p>{{service.description}}</h4>
+                {% else %}
+                    <h4>{{service.label}}</h4>
+                {% endif %}
             </li>
             {% endfor %}
         </ul>
     </div>
     <div class="schedule">
-    <table class="table table-striped">
-        <thead>
-            <tr>
-                <th scope="col"></th>
-                <th scope="col">Ouverture matin</th>
-                <th scope="col">Fermeture matin</th>
-                <th scope="col">Ouverture après-midi</th>
-                <th scope="col">Fermeture après-midi</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for schedule in schedules %}
+        <table class="table table-striped">
+            <thead>
                 <tr>
-                    <td>{{ schedule.weekday }}</td>
-                    {% if schedule.morningopeningtime == "00:00:00" and schedule.morningclosingtime == "00:00:00" and schedule.afternoonopeningtime == "00:00:00" and schedule.afternoonclosingtime == "00:00:00" %}
-                        <td colspan="4">Fermé</td>
-                    {% else %}
-                        {% if schedule.morningopeningtime == "00:00:00" and schedule.morningclosingtime == "00:00:00" %}
-                            <td colspan="2">Fermé</td>
-                        {% else %}
-                            <td>{{ schedule.morningopeningtime }}</td>
-                            <td>{{ schedule.morningclosingtime }}</td>
-                        {% endif %}
-                        {% if schedule.afternoonopeningtime == "00:00:00" and schedule.afternoonclosingtime == "00:00:00" %}
-                            <td colspan="2">Fermé</td>
-                        {% else %}
-                            <td>{{ schedule.afternoonopeningtime }}</td>
-                            <td>{{ schedule.afternoonclosingtime }}</td>
-                        {% endif %}
-                    {% endif %}
+                    <th scope="col"></th>
+                    <th scope="col">Ouverture matin</th>
+                    <th scope="col">Fermeture matin</th>
+                    <th scope="col">Ouverture après-midi</th>
+                    <th scope="col">Fermeture après-midi</th>
                 </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-</div>
+            </thead>
+            <tbody>
+                {% for schedule in schedules %}
+                    <tr>
+                        <td>{{ schedule.weekday }}</td>
+                        {% if schedule.morningopeningtime == "00:00:00" and schedule.morningclosingtime == "00:00:00" and schedule.afternoonopeningtime == "00:00:00" and schedule.afternoonclosingtime == "00:00:00" %}
+                            <td colspan="4">Fermé</td>
+                        {% else %}
+                            {% if schedule.morningopeningtime == "00:00:00" and schedule.morningclosingtime == "00:00:00" %}
+                                <td colspan="2">Fermé</td>
+                            {% else %}
+                                <td>{{ schedule.morningopeningtime }}</td>
+                                <td>{{ schedule.morningclosingtime }}</td>
+                            {% endif %}
+                            {% if schedule.afternoonopeningtime == "00:00:00" and schedule.afternoonclosingtime == "00:00:00" %}
+                                <td colspan="2">Fermé</td>
+                            {% else %}
+                                <td>{{ schedule.afternoonopeningtime }}</td>
+                                <td>{{ schedule.afternoonclosingtime }}</td>
+                            {% endif %}
+                        {% endif %}
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
     <a href="/appointment" class="btn btn-primary get-appointment">Prendre rendez-vous</a>
 {% endblock %}
