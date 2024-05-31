@@ -29,8 +29,7 @@ const Appointment = sequelize.define('appointments', {
   }
 });
 
-// Correction des associations avec les bonnes clés étrangères
-Appointment.belongsTo(User, { foreignKey: 'userId', as: 'patient' });
-Appointment.belongsTo(Service, { foreignKey: 'serviceId', as: 'service' });
+Appointment.belongsTo(User, { foreignKey: 'userId' });
+Appointment.belongsTo(Service, { foreignKey: 'serviceId'});
 
 module.exports = Appointment;
