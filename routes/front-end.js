@@ -47,8 +47,4 @@ router.get('/news/:id', newsCtrl.renderSingleNews);
 router.get('/appointment', auth, appointmentsCtrl.renderAppointmentsForm);
 router.get('/services', servicesCtrl.renderServices);
 
-
-
-
-
 module.exports = router;
