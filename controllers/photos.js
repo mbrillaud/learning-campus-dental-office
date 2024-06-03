@@ -1,15 +1,35 @@
 const Photo = require('../models/Photo');
 const fs = require('fs');
 
+/**
+ * Ajouter une photo.
+ *
+ * @async
+ * @function postPhoto
+ * @param {Object} req - L'objet de requête HTTP.
+ * @param {Object} res - L'objet de réponse HTTP.
+ * @returns {Promise<void>}
+ * @throws {Error} - En cas d'erreur, retourne une réponse avec un statut 500 et un message d'erreur JSON.
+ */
 exports.postPhoto = async (req, res) => {
     try {
-      const photo = await Photo.create({url: req.file.path});
-      res.status(201).json(photo);
+        const photo = await Photo.create({ url: req.file.path });
+        res.status(201).json(photo);
     } catch (error) {
         res.status(500).json({ error });
     }
 };
 
+/**
+ * Supprimer une photo par ID.
+ *
+ * @async
+ * @function deletePhoto
+ * @param {Object} req - L'objet de requête HTTP.
+ * @param {Object} res - L'objet de réponse HTTP.
+ * @returns {Promise<void>}
+ * @throws {Error} - En cas d'erreur, retourne une réponse avec un statut 404 ou 500 et un message d'erreur JSON.
+ */
 exports.deletePhoto = async (req, res) => {
     try {
         const photo = await Photo.findOne({ where: { id: req.params.id } });
@@ -34,6 +54,16 @@ exports.deletePhoto = async (req, res) => {
     }
 };
 
+/**
+ * Rendre la page des photos.
+ *
+ * @async
+ * @function renderPhotos
+ * @param {Object} req - L'objet de requête HTTP.
+ * @param {Object} res - L'objet de réponse HTTP.
+ * @returns {Promise<void>}
+ * @throws {Error} - En cas d'erreur, retourne une réponse avec un statut 500 et un message d'erreur JSON.
+ */
 exports.renderPhotos = async (req, res) => {
     try {
         const photos = await Photo.findAll();

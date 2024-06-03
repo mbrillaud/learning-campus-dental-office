@@ -1,6 +1,16 @@
 const News = require('../models/News');
 const fs = require('fs');
 
+/**
+ * Ajouter une nouvelle actualité.
+ *
+ * @async
+ * @function addNews
+ * @param {Object} req - L'objet de requête HTTP.
+ * @param {Object} res - L'objet de réponse HTTP.
+ * @returns {Promise<void>}
+ * @throws {Error} - En cas d'erreur, retourne une réponse avec un statut 400 ou 500 et un message d'erreur JSON.
+ */
 exports.addNews = async (req, res) => {
     try {
         if (!req.file) {
@@ -17,6 +27,16 @@ exports.addNews = async (req, res) => {
     }
 }
 
+/**
+ * Obtenir toutes les actualités.
+ *
+ * @async
+ * @function getNews
+ * @param {Object} req - L'objet de requête HTTP.
+ * @param {Object} res - L'objet de réponse HTTP.
+ * @returns {Promise<void>}
+ * @throws {Error} - En cas d'erreur, retourne une réponse avec un statut 500 et un message d'erreur JSON.
+ */
 exports.getNews = async (req, res) => {
     try {
         const news = await News.findAll();
@@ -26,6 +46,16 @@ exports.getNews = async (req, res) => {
     }
 }
 
+/**
+ * Mettre à jour une actualité par ID.
+ *
+ * @async
+ * @function updateNews
+ * @param {Object} req - L'objet de requête HTTP.
+ * @param {Object} res - L'objet de réponse HTTP.
+ * @returns {Promise<void>}
+ * @throws {Error} - En cas d'erreur, retourne une réponse avec un statut 404 ou 500 et un message d'erreur JSON.
+ */
 exports.updateNews = async (req, res) => {
     try {
         const [updatedRows] = await News.update(req.body, { where: { id: req.params.id } });
@@ -39,9 +69,18 @@ exports.updateNews = async (req, res) => {
     }
 }
 
+/**
+ * Supprimer une actualité par ID.
+ *
+ * @async
+ * @function deleteNews
+ * @param {Object} req - L'objet de requête HTTP.
+ * @param {Object} res - L'objet de réponse HTTP.
+ * @returns {Promise<void>}
+ * @throws {Error} - En cas d'erreur, retourne une réponse avec un statut 404 ou 500 et un message d'erreur JSON.
+ */
 exports.deleteNews = async (req, res) => {
     try {
-
         const news = await News.findOne({ where: { id: req.params.id } });
         if (!news) {
             res.status(404).json({ error: 'News not found' });
@@ -53,7 +92,7 @@ exports.deleteNews = async (req, res) => {
                 res.status(500).json({ error: 'Failed to delete news' });
                 return;
             }
-        })
+        });
         await news.destroy();
         res.status(204).end();
     } catch (error) {
@@ -61,6 +100,16 @@ exports.deleteNews = async (req, res) => {
     }
 }
 
+/**
+ * Rendre la page des actualités.
+ *
+ * @async
+ * @function renderNews
+ * @param {Object} req - L'objet de requête HTTP.
+ * @param {Object} res - L'objet de réponse HTTP.
+ * @returns {Promise<void>}
+ * @throws {Error} - En cas d'erreur, retourne une réponse avec un statut 500 et un message d'erreur JSON.
+ */
 exports.renderNews = async (req, res) => {
     try {
         const news = await News.findAll();
@@ -69,6 +118,17 @@ exports.renderNews = async (req, res) => {
         res.status(500).json({ error });
     }
 }
+
+/**
+ * Rendre la page des actualités pour le back-office.
+ *
+ * @async
+ * @function renderNewsBO
+ * @param {Object} req - L'objet de requête HTTP.
+ * @param {Object} res - L'objet de réponse HTTP.
+ * @returns {Promise<void>}
+ * @throws {Error} - En cas d'erreur, retourne une réponse avec un statut 500 et un message d'erreur JSON.
+ */
 exports.renderNewsBO = async (req, res) => {
     try {
         const news = await News.findAll();
@@ -78,6 +138,16 @@ exports.renderNewsBO = async (req, res) => {
     }
 }
 
+/**
+ * Rendre une actualité unique.
+ *
+ * @async
+ * @function renderSingleNews
+ * @param {Object} req - L'objet de requête HTTP.
+ * @param {Object} res - L'objet de réponse HTTP.
+ * @returns {Promise<void>}
+ * @throws {Error} - En cas d'erreur, retourne une réponse avec un statut 500 et un message d'erreur JSON.
+ */
 exports.renderSingleNews = async (req, res) => {
     try {
         const news = await News.findOne({ where: { id: req.params.id } });

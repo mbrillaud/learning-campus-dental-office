@@ -1,5 +1,15 @@
 const Service = require('../models/Service');
 
+/**
+ * Ajouter un nouveau service.
+ *
+ * @async
+ * @function addService
+ * @param {Object} req - L'objet de requête HTTP.
+ * @param {Object} res - L'objet de réponse HTTP.
+ * @returns {Promise<void>}
+ * @throws {Error} - En cas d'erreur, retourne une réponse avec un statut 400 et un message d'erreur JSON.
+ */
 exports.addService = async (req, res) => {
     try {
         const service = await Service.create(req.body);
@@ -9,6 +19,16 @@ exports.addService = async (req, res) => {
     }
 };
 
+/**
+ * Obtenir tous les services.
+ *
+ * @async
+ * @function getServices
+ * @param {Object} req - L'objet de requête HTTP.
+ * @param {Object} res - L'objet de réponse HTTP.
+ * @returns {Promise<void>}
+ * @throws {Error} - En cas d'erreur, retourne une réponse avec un statut 500 et un message d'erreur JSON.
+ */
 exports.getServices = async (req, res) => {
     try {
         const services = await Service.findAll();
@@ -18,6 +38,16 @@ exports.getServices = async (req, res) => {
     }
 };
 
+/**
+ * Mettre à jour un service par ID.
+ *
+ * @async
+ * @function updateService
+ * @param {Object} req - L'objet de requête HTTP.
+ * @param {Object} res - L'objet de réponse HTTP.
+ * @returns {Promise<void>}
+ * @throws {Error} - En cas d'erreur, retourne une réponse avec un statut 404 ou 500 et un message d'erreur JSON.
+ */
 exports.updateService = async (req, res) => {
     try {
         const [updatedRows] = await Service.update(req.body, { where: { id: req.params.id } });
@@ -31,6 +61,16 @@ exports.updateService = async (req, res) => {
     }
 };
 
+/**
+ * Supprimer un service par ID.
+ *
+ * @async
+ * @function deleteService
+ * @param {Object} req - L'objet de requête HTTP.
+ * @param {Object} res - L'objet de réponse HTTP.
+ * @returns {Promise<void>}
+ * @throws {Error} - En cas d'erreur, retourne une réponse avec un statut 404 ou 500 et un message d'erreur JSON.
+ */
 exports.deleteService = async (req, res) => {
     try {
         const rowsDeleted = await Service.destroy({ where: { id: req.params.id } });
@@ -44,6 +84,16 @@ exports.deleteService = async (req, res) => {
     }
 };
 
+/**
+ * Rendre la page des services.
+ *
+ * @async
+ * @function renderServices
+ * @param {Object} req - L'objet de requête HTTP.
+ * @param {Object} res - L'objet de réponse HTTP.
+ * @returns {Promise<void>}
+ * @throws {Error} - En cas d'erreur, retourne une réponse avec un statut 500 et un message d'erreur JSON.
+ */
 exports.renderServices = async (req, res) => {
     try {
         const services = await Service.findAll();
@@ -53,6 +103,16 @@ exports.renderServices = async (req, res) => {
     }
 };
 
+/**
+ * Rendre la page des services pour le back-office.
+ *
+ * @async
+ * @function renderServicesBO
+ * @param {Object} req - L'objet de requête HTTP.
+ * @param {Object} res - L'objet de réponse HTTP.
+ * @returns {Promise<void>}
+ * @throws {Error} - En cas d'erreur, retourne une réponse avec un statut 500 et un message d'erreur JSON.
+ */
 exports.renderServicesBO = async (req, res) => {
     try {
         const services = await Service.findAll();
