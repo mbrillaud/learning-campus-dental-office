@@ -1,34 +1,16 @@
+// Load environment variables
+require('dotenv').config({path: '.env'});
+
+// Module imports
 const express = require('express');
-
-const app = express();
-//Allow app to read body request
-app.use(express.json());
-
 const cookieParser = require('cookie-parser');
-app.use(cookieParser());
-
-const dotenv = require('dotenv');
-dotenv.config({path: '.env'});
-
 const sequelize = require('./utils/sequelize-config');
 const cors = require('cors');
 const swaggerJSDoc = require('swagger-jsdoc');
 const helpers = require('./utils/helpers');
 const swaggerUi = require('swagger-ui-express');
 const nunjucks = require('nunjucks');
-
-//Vérification du status de l'utilisateur
 const checkUserStatus = require('./middlewares/checkUserStatus');
-app.use(checkUserStatus);
-
-//Models
-const User = require('./models/User');
-const News = require('./models/News');
-const Service = require('./models/Service');
-const Appointment = require('./models/Appointment');
-const Schedules = require('./models/Schedules');
-
-//Routes
 const viewsRoutes = require('./routes/front-end');
 const usersRoutes = require('./routes/users');
 const schedulesRoutes = require('./routes/schedules');
@@ -37,32 +19,38 @@ const photosRoutes = require('./routes/photos');
 const newsRoutes = require('./routes/news');
 const appointmentsRoutes = require('./routes/appointments');
 
-app.use('/', viewsRoutes);
-app.use('/api/auth', usersRoutes);
-app.use('/api/schedules', schedulesRoutes);
-app.use('/api/services', servicesRoutes);
-app.use('/api/upload/office', photosRoutes);
-app.use('/api/news', newsRoutes);
-app.use('/api/appointments', appointmentsRoutes);
+// App configuration
+const app = express();
+app.use(express.json());
+app.use(cookieParser());
+app.use(checkUserStatus);
+app.use(cors());
+app.use('/public', express.static(__dirname + '/public'));
 
-//Sequelize
-// sequelize.authenticate()
-//     .then(() => {
-//         console.log('Connection to the database has been established successfully.');
-//     })
-//     .catch(err => {
-//         console.error('Unable to connect to the database:', err);
-// });
+// Database initialization
+sequelize.authenticate()
+    .then(() => {
+        console.log('Connection to the database has been established successfully.');
 
-sequelize.sync({ force: false })
-  .then(() => {
-    console.log('Tables synchronized successfully.');
-  })
-  .catch(err => {
-    console.error('Error synchronizing tables:', err);
-  });
+        return sequelize.sync({ force: false });
+    })
+    .then(() => {
+        console.log('Tables synchronized successfully.');
 
-//Swagger
+        // Routes
+        app.use('/', viewsRoutes);
+        app.use('/api/auth', usersRoutes);
+        app.use('/api/schedules', schedulesRoutes);
+        app.use('/api/services', servicesRoutes);
+        app.use('/api/upload/office', photosRoutes);
+        app.use('/api/news', newsRoutes);
+        app.use('/api/appointments', appointmentsRoutes);
+    })
+    .catch(err => {
+        console.error('Unable to connect to the database:', err);
+    });
+
+// Swagger
 const port = helpers.normalizePort(process.env.PORT || '3000');
 const swaggerOptions = {
   swaggerDefinition: {
@@ -93,11 +81,10 @@ const swaggerOptions = {
   apis: ["back-office/routes/*.js", "front-office/routes/*.js", "routes/*.js"]
 };
 
-
 const swaggerDocs = swaggerJSDoc(swaggerOptions);
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 
-//Nunjucks
+// Nunjucks
 nunjucks.configure('views',{
     autoescape: true,
     express: app,
@@ -105,10 +92,5 @@ nunjucks.configure('views',{
 });
 app.engine ('njk', nunjucks.render);
 app.set('view engine', 'njk');
-
-
-app.use('/public', express.static(__dirname + '/public'));
-
-app.use(cors());
 
 module.exports = app;
