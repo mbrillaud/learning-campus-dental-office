@@ -23,9 +23,12 @@ const login = (credentials) => {
         .then(data => {
             if(data.status === 200) {
                 window.location.href = '/';
+            } else {
+                showToast('Email ou mot de passe invalide', 'error');
             }
         })
         .catch(error => {
+            showToast('Erreur lors de la connexion', 'error');
             console.error('Erreur lors de la requête :', error);
         });
 };
