@@ -26,20 +26,18 @@ function createAndSetToken(user, res) {
  * @param {Object} res - La réponse HTTP.
  * @param {Function} next - Le middleware suivant.
  */
-exports.signup = (req, res, next) => {
-    bcrypt.hash(req.body.password, 10)
-        .then(hash => {
-            req.body.password = hash;
-            const user = new User(req.body);
-            user.save()
-                .then(() => {
-                    createAndSetToken(user, res);
-                    res.set('Location', '/');
-                    res.status(302).json({ message: 'User has been created and logged in successfully.' });
-                })
-                .catch(error => res.status(400).json({ error }));
-        })
-        .catch(error => res.status(500).json({ error }));
+exports.signup = async (req, res, next) => {
+    try {
+        const hashedPassword = await bcrypt.hash(req.body.password, 10);
+        req.body.password = hashedPassword;
+        const user = new User(req.body);
+        await user.save();
+        createAndSetToken(user, res);
+        res.set('Location', '/');
+        res.status(302).json({ message: 'User has been created and logged in successfully.' });
+    } catch (error) {
+        res.status(500).json({ error });
+    }
 };
 
 /**
@@ -48,29 +46,25 @@ exports.signup = (req, res, next) => {
  * @param {Object} res - La réponse HTTP.
  * @param {Function} next - Le middleware suivant.
  */
-exports.login = (req, res, next) => {
-    User.findOne({ where: { email: req.body.email } })
-        .then(user => {
-            const loginErrorMessage = 'Wrong email or password';
-            if (user === null) {
+exports.login = async (req, res, next) => {
+    try {
+        const user = await User.findOne({ where: { email: req.body.email } });
+        const loginErrorMessage = 'Wrong email or password';
+        if (user === null) {
+            res.status(401).json({ message: loginErrorMessage });
+        } else {
+            const valid = await bcrypt.compare(req.body.password, user.password);
+            if (!valid) {
                 res.status(401).json({ message: loginErrorMessage });
             } else {
-                bcrypt.compare(req.body.password, user.password)
-                    .then(valid => {
-                        if (!valid) {
-                            res.status(401).json({ message: loginErrorMessage });
-                        } else {
-                            createAndSetToken(user, res);
-                            res.set('Location', '/');
-                            res.status(302).json({ message: 'logged in successfully' });
-                        }
-                    })
-                    .catch(error => {
-                        res.status(500).json({ error });
-                    });
+                createAndSetToken(user, res);
+                res.set('Location', '/');
+                res.status(302).json({ message: 'logged in successfully' });
             }
-        })
-        .catch(error => res.status(500).json({ error }));
+        }
+    } catch (error) {
+        res.status(500).json({ error });
+    }
 };
 
 /**

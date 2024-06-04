@@ -1,5 +1,13 @@
 const jwt = require('jsonwebtoken');
-//Permet d'envoyer des variables d'environnement pour les vues pour afficher certains contenu aux admins ou aux utilisateurs connectés
+
+/**
+ * Middleware pour vérifier le statut de l'utilisateur.
+ * 
+ * @param {Object} req - L'objet de requête HTTP.
+ * @param {Object} res - L'objet de réponse HTTP.
+ * @param {Function} next - La fonction de rappel pour passer au middleware suivant.
+ * @returns {void}
+ */
 module.exports = (req, res, next) => {
     try {
         const token = req.cookies.token;

@@ -37,8 +37,12 @@ exports.addOrUpdateSchedule = async (req, res) => {
  * @returns {void}
  * @throws {Error} - En cas d'erreur, retourne une réponse avec un statut 500 et un message d'erreur JSON.
  */
-exports.getSchedules = (req, res) => {
-    Schedules.findAll()
-        .then(schedules => res.status(200).json(schedules))
-        .catch(error => res.status(500).json({ error }));
-}
+exports.getSchedules = async (req, res) => {
+    try {
+      const schedules = await Schedules.findAll();
+      res.status(200).json(schedules);
+    } catch (error) {
+      console.error("Error retrieving schedules:", error);
+      res.status(500).json({ error: "Error retrieving schedules" });
+    }
+  };
