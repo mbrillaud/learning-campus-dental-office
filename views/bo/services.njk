@@ -12,6 +12,9 @@
                             {% if loop.first %}
                                 <p class="alert alert-warning">Ce service correspond à la description du cabinet affichée sur la page principale</p>
                             {% endif %}
+                            {% if loop.index == 2 %}
+                                <p class="alert alert-warning">Ce service correspond à la description du cabinet affichée sur la page Nos services</p>
+                            {% endif %}
                             <div class="row">
                                 <div class="col-md-6">
                                     <input type="text" class="form-control" name="label" value="{{ service.label }}">

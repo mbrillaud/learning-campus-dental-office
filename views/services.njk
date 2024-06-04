@@ -8,7 +8,7 @@
                 {% if loop.index > 1 %}
                     <li>
                         <h4>{{service.label}}</h4>
-                        <p>{{service.description}}</p>
+                        <p>{{service.description | safe}}</p>
                     </li>
                 {% endif %}
             {% endfor %}
