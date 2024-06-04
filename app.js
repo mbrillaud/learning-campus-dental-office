@@ -10,7 +10,7 @@ const swaggerJSDoc = require('swagger-jsdoc');
 const helpers = require('./utils/helpers');
 const swaggerUi = require('swagger-ui-express');
 const nunjucks = require('nunjucks');
-const checkUserStatus = require('./middlewares/checkUserStatus');
+const checkUserInfos = require('./middlewares/checkUserInfos');
 const viewsRoutes = require('./routes/front-end');
 const usersRoutes = require('./routes/users');
 const schedulesRoutes = require('./routes/schedules');
@@ -23,7 +23,7 @@ const appointmentsRoutes = require('./routes/appointments');
 const app = express();
 app.use(express.json());
 app.use(cookieParser());
-app.use(checkUserStatus);
+app.use(checkUserInfos);
 app.use(cors());
 app.use('/public', express.static(__dirname + '/public'));
 

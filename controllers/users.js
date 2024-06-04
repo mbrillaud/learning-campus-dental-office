@@ -12,7 +12,9 @@ function createAndSetToken(user, res) {
     const token = jwt.sign(
         {
             userId: user.id,
-            userRole: user.role
+            userRole: user.role,
+            userFirstName: user.firstName,
+            userLastName: user.lastName
         },
         process.env.TOKEN_KEY,
         { expiresIn: '24h' }
