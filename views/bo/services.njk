@@ -5,26 +5,34 @@
     <div class="container">
         <h2 class="text-center">Services</h2>
         <ul class="list-group services" id="services">
-            {% for service in services %}
-                <li class="list-group-item">
-                    <form id="{{service.id}}" class="service-form">
-                        <div class="row">
-                            <div class="col-md-6">
-                                <input type="text" class="form-control" name="label" value="{{ service.label }}">
+            {% if services.length > 0 %}
+                {% for service in services %}
+                    <li class="list-group-item service-item">
+                        <form id="{{service.id}}" class="service-form">
+                            {% if loop.first %}
+                                <p class="alert alert-warning">Ce service correspond à la description du cabinet affichée sur la page principale</p>
+                            {% endif %}
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <input type="text" class="form-control" name="label" value="{{ service.label }}">
+                                </div>
+                                <div class="col-md-6">
+                                    <textarea class="form-control" name="description">{{ service.description }}</textarea>
+                                </div>
                             </div>
-                            <div class="col-md-6">
-                                <textarea class="form-control" name="description">{{ service.description }}</textarea>
+                            <div class="row mt-2">
+                                <div class="col-md-6">
+                                    <button type="submit" class="btn btn-primary update">Modifier</button>
+                                    <button class="btn btn-danger delete">Supprimer</button>
+                                </div>
                             </div>
-                        </div>
-                        <div class="row mt-2">
-                            <div class="col-md-6">
-                                <button type="submit" class="btn btn-primary update">Modifier</button>
-                                <button class="btn btn-danger delete">Supprimer</button>
-                            </div>
-                        </div>
-                    </form>
-                </li>
-            {% endfor %}
+                        </form>
+                    </li>
+                {% endfor %}
+            {% else %}
+                <p>Aucun service disponible. Le premier service ajouté sera la description du cabinet affichée sur la page principale. Les suivants composeront la liste des services proposés sur la page "Nos services" et lors d'une prise de rendez-vous.</p>
+            {% endif %}
+        </ul>
         </ul>
         <h3 class="mt-4">Ajouter un service</h3>
         <form class="service-form">
