@@ -1,5 +1,6 @@
 const express = require('express');
 const usersCtrl = require('../controllers/users');
+const auth = require('../middlewares/auth');
 const isAdmin = require('../middlewares/isAdmin');
 
 const router = express.Router();
@@ -140,6 +141,6 @@ const router = express.Router();
 
 router.post('/signup', usersCtrl.signup);
 router.post('/login', usersCtrl.login);
-router.put('/:id', isAdmin, usersCtrl.updateUser);
+router.put('/:id', auth, isAdmin, usersCtrl.updateUser);
 
 module.exports = router;
