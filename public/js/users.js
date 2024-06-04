@@ -50,7 +50,12 @@ document.addEventListener('DOMContentLoaded', () => {
             })
             .then(response => response.json())
             .then(data => {
-                location.reload();
+                if(data.type === 'updated') {
+                    showToast(data.message, 'success');
+                }
+                if(data.type === 'no_change') {
+                    showToast(data.message, 'error');
+                }
             })
             .catch((error) => {
                 console.error('Error:', error);

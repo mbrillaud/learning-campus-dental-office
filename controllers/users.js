@@ -85,8 +85,14 @@ exports.updateUser = async (req, res) => {
             res.status(404).json({ error: 'User not found' });
             return;
         }
+        // Check if there are any differences between the request data and the user data in the database
+        const isDifferent = Object.keys(req.body).some(key => req.body[key] !== user[key]);
+        if (!isDifferent) {
+            res.status(200).json({ message: 'Aucune modification à effectuer', type: 'no_change' });
+            return;
+        }
         const updatedUser = await user.update(req.body);
-        res.status(200).json(updatedUser);
+        res.status(200).json({ updatedUser, message: 'Utilisateur mis à jour avec succès', type: 'updated' });
     } catch (error) {
         res.status(500).json({ error });
     }
@@ -98,6 +104,6 @@ exports.renderUsers = async (req, res) => {
         const users = await User.findAll();
         res.render('bo/users.njk', { users: users });
     } catch (error) {
-        res.status(500).json({ error });
+        res.status(500).json({ error, message: 'Erreur lors de la récupération des utilisateurs' });
     }
 }

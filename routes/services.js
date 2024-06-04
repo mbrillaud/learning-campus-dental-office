@@ -7,42 +7,6 @@ const router = express.Router();
 
 /**
  * @swagger
- * tags:
- *   name: Services
- *   description: Opérations sur les services
- */
-
-/**
- * @swagger
- * components:
- *   schemas:
- *     Service:
- *       type: object
- *       properties:
- *         id:
- *           type: integer
- *           description: ID du service
- *         label:
- *           type: string
- *           description: Libellé du service
- *         description:
- *           type: string
- *           description: Description du service
- *     ServiceInput:
- *       type: object
- *       properties:
- *         label:
- *           type: string
- *           description: Libellé du service
- *           example: Service A
- *         description:
- *           type: string
- *           description: Description du service
- *           example: Description du service A
- */
-
-/**
- * @swagger
  * /services:
  *   post:
  *     summary: Ajouter un service
@@ -53,14 +17,39 @@ const router = express.Router();
  *       content:
  *         application/json:
  *           schema:
- *             $ref: '#/components/schemas/ServiceInput'
+ *             type: object
+ *             properties:
+ *               label:
+ *                 type: string
+ *                 description: Libellé du service
+ *                 example: Service A
+ *               description:
+ *                 type: string
+ *                 description: Description du service
+ *                 example: Description du service A
  *     responses:
  *       '201':
  *         description: Service créé avec succès
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/Service'
+ *               type: object
+ *               properties:
+ *                 id:
+ *                   type: integer
+ *                   description: ID du service
+ *                 label:
+ *                   type: string
+ *                   description: Libellé du service
+ *                 description:
+ *                   type: string
+ *                   description: Description du service
+ */
+router.post('/', auth, isAdmin, servicesCtrl.addService);
+
+/**
+ * @swagger
+ * /services:
  *   get:
  *     summary: Obtenir tous les services
  *     description: Récupère la liste de tous les services.
@@ -73,10 +62,18 @@ const router = express.Router();
  *             schema:
  *               type: array
  *               items:
- *                 $ref: '#/components/schemas/Service'
+ *                 type: object
+ *                 properties:
+ *                   id:
+ *                     type: integer
+ *                     description: ID du service
+ *                   label:
+ *                     type: string
+ *                     description: Libellé du service
+ *                   description:
+ *                     type: string
+ *                     description: Description du service
  */
-
-router.post('/', auth, isAdmin, servicesCtrl.addService);
 router.get('/', servicesCtrl.getServices);
 
 /**
@@ -104,6 +101,12 @@ router.get('/', servicesCtrl.getServices);
  *         description: Service mis à jour avec succès
  *       '404':
  *         description: Service non trouvé
+ */
+router.put('/:id', auth, isAdmin, servicesCtrl.updateService);
+
+/**
+ * @swagger
+ * /services/{id}:
  *   delete:
  *     summary: Supprimer un service
  *     description: Supprime un service existant.
@@ -121,8 +124,6 @@ router.get('/', servicesCtrl.getServices);
  *       '404':
  *         description: Service non trouvé
  */
-
-router.put('/:id', auth, isAdmin, servicesCtrl.updateService);
 router.delete('/:id', auth, isAdmin, servicesCtrl.deleteService);
 
 module.exports = router;
