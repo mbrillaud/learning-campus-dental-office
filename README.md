@@ -52,5 +52,23 @@ L'application se divise en deux grandes parties :
 
 
 ## Notes
+
 - Diagramme de classe : [https://drive.google.com/file/d/1QxpD6kzZo02YJPceZ4SohObwG0Fje8xc/view?usp=sharing](https://drive.google.com/file/d/1QxpD6kzZo02YJPceZ4SohObwG0Fje8xc/view?usp=sharing)
+- Pour créer le premier admin, attribuer le role "admin" à un utilisateur en base
 - Documentation API : /api-docs
+- URL prod : https://learning-campus-dental-office.onrender.com/
+
+  ### Installation
+- cloner le projet
+- npm install
+- créer un fichier .env en remplissant les variables suivantes:
+````
+DB_HOST=""
+DB_NAME=""
+DB_PORT=""
+DB_USER=""
+DB_PWD=""
+TOKEN_KEY=""
+TINYMCE_API_KEY=""
+NODE_ENV="development"
+````
