@@ -21,7 +21,12 @@ module.exports = (req, res, next) => {
                 next();
             } else {
                 const userRole = jwt.verify(token, process.env.TOKEN_KEY).userRole;
+                const userFirstName = jwt.verify(token, process.env.TOKEN_KEY).userFirstName;
+                const userLastName = jwt.verify(token, process.env.TOKEN_KEY).userLastName;
+
                 res.locals.isAuthenticated = true;
+                res.locals.userFirstName = userFirstName;
+                res.locals.userLastName = userLastName;
                 if(userRole === "admin") {
                     res.locals.isAdmin = true;
                 }

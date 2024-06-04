@@ -23,6 +23,9 @@
 </head>
 
 <body>
+  {% if userFirstName %}
+  <div class="connexion-status">Connecté en tant que {{userFirstName}} {{userLastName}}</div>
+  {% endif %}
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <a class="navbar-brand" href="/">
       <img src="/public/images/logo.svg" alt="Logo">
