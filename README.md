@@ -54,6 +54,8 @@ L'application se divise en deux grandes parties :
 ## Notes
 
 - Diagramme de classe : [https://drive.google.com/file/d/1QxpD6kzZo02YJPceZ4SohObwG0Fje8xc/view?usp=sharing](https://drive.google.com/file/d/1QxpD6kzZo02YJPceZ4SohObwG0Fje8xc/view?usp=sharing)
+- Diagramme de cas utilisation user: [https://drive.google.com/file/d/1WNkunhiTmlZ_qnXhHaG9EP7g4RtyPSXb/view?usp=drive_link](https://drive.google.com/file/d/1WNkunhiTmlZ_qnXhHaG9EP7g4RtyPSXb/view?usp=sharing)
+- Diagramme de cas d'utilisation admin : [https://drive.google.com/file/d/1INtHLT0F6CuNxvNos3T4O1pQIk0K4vRD/view?usp=sharing](https://drive.google.com/file/d/1INtHLT0F6CuNxvNos3T4O1pQIk0K4vRD/view?usp=sharing)
 - Pour créer le premier admin, attribuer le role "admin" à un utilisateur en base
 - Documentation API : /api-docs
 - URL prod : https://learning-campus-dental-office.onrender.com/
